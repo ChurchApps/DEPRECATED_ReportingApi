@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `files`;
+
+CREATE TABLE `files` (
+  `id` char(11) NOT NULL,
+  `churchId` char(11) DEFAULT NULL,
+  `type` char(25) DEFAULT NULL,
+  `content` text,
+  `lastModified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+

@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `pages`;
+
+CREATE TABLE `pages` (
+  `id` char(11) NOT NULL,
+  `churchId` char(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `content` text,
+  `path` varchar(25) DEFAULT NULL,
+  `lastModified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `churchId` (`churchId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

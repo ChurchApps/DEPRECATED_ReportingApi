@@ -7,6 +7,8 @@ import { bindings } from "./inversify.config";
 import express from "express";
 import { CustomAuthProvider } from "./apiBase/auth";
 import cors from "cors"
+import { graphqlHTTP } from 'express-graphql'
+import { GraphQLHelper } from "./helpers/GraphQLHelper";
 
 export const init = async () => {
     dotenv.config();
@@ -14,10 +16,21 @@ export const init = async () => {
     await container.loadAsync(bindings);
     const app = new InversifyExpressServer(container, null, null, null, CustomAuthProvider);
 
+
     const configFunction = (expApp: express.Application) => {
         expApp.use(bodyParser.urlencoded({ extended: true }));
         expApp.use(bodyParser.json({ limit: "50mb" }));
         expApp.use(cors())
+
+        expApp.use(
+            '/graphql',
+            graphqlHTTP({
+                schema: GraphQLHelper.schema,
+                rootValue: GraphQLHelper.root,
+                graphiql: true,
+            }),
+        );
+
     };
 
     const server = app.setConfig(configFunction).build();

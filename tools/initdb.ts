@@ -23,7 +23,7 @@ const initTables = async (displayName: string, tables: { title: string, file: st
   console.log("SECTION: " + displayName);
   for (const table of tables) await DBCreator.runScript(table.title, "./tools/dbScripts/" + table.file, false);
 }
-
+/*
 init()
   .then(() => { console.log("Database Created"); process.exit(0); })
   .catch((ex) => {
@@ -32,3 +32,4 @@ init()
     process.exit(0);
   });
 
+*/

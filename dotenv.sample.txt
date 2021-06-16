@@ -11,6 +11,8 @@ DB_DATABASE=reporting
 DB_USER=root
 DB_PASSWORD=
 
+DB_PRISMA_MEMBERSHIP=mysql://USERNAME:PASSWORD@SERVER:$3306/membership
+
 ENCRYPTION_KEY=aSecretKeyOfExactly192BitsLength
 
 JWT_SECRET_KEY=this is a test key that is a sentence

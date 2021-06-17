@@ -37,7 +37,7 @@ export type Group = {
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   parentPickup?: Maybe<Scalars['Boolean']>;
-  people?: Maybe<Person[]>;
+  people?: Maybe<Array<Person>>;
   removed?: Maybe<Scalars['Boolean']>;
   trackAttendance?: Maybe<Scalars['Boolean']>;
 };
@@ -48,7 +48,7 @@ export type GroupWhereInput = {
 
 export type GroupsResult = {
   __typename?: 'GroupsResult';
-  edges: Group[];
+  edges: Array<Group>;
   total: Scalars['Int'];
 };
 
@@ -57,7 +57,7 @@ export type HouseHold = {
   churchId?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
-  people?: Maybe<Person[]>;
+  people?: Maybe<Array<Person>>;
 };
 
 export type HouseHoldWhereInput = {
@@ -87,7 +87,7 @@ export type Person = {
   email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['String']>;
-  groups?: Maybe<Group[]>;
+  groups?: Maybe<Array<Group>>;
   homePhone?: Maybe<Scalars['String']>;
   household?: Maybe<HouseHold>;
   householdId?: Maybe<Scalars['String']>;
@@ -115,17 +115,17 @@ export type PersonWhereInput = {
 
 export type PersonsResult = {
   __typename?: 'PersonsResult';
-  edges: Person[];
+  edges: Array<Person>;
   total: Scalars['Int'];
 };
 
 export type Query = {
   __typename?: 'Query';
   group?: Maybe<Group>;
-  groups?: Maybe<Group[]>;
+  groups?: Maybe<Array<Group>>;
   household?: Maybe<HouseHold>;
-  households?: Maybe<HouseHold[]>;
-  people: Maybe<Person>[];
+  households?: Maybe<Array<HouseHold>>;
+  people: Array<Maybe<Person>>;
   person?: Maybe<Person>;
   q?: Maybe<Scalars['String']>;
 };

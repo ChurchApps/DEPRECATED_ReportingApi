@@ -6,7 +6,7 @@ import { combineResolvers } from 'graphql-resolvers'
 export class HouseholdResolver {
 
   private static householdQuery = async (root: unknown, args: QueryHouseholdArgs, ctx: ReqContext): Promise<HouseHold | null> => {
-    const household = await PrismaHelper.getClient().households.findFirst({
+    const household = await PrismaHelper.getMembershipClient().households.findFirst({
       where: { id: args.where.id, },
     });
     return household;
@@ -14,7 +14,7 @@ export class HouseholdResolver {
 
   private static householdsQuery = async (root: any, args: QueryHouseholdsArgs, ctx: ReqContext): Promise<HouseHold[] | null> => {
     const { from, size } = PaginationHelper.initPagination(args.pagination);
-    const households = await PrismaHelper.getClient().households.findMany({
+    const households = await PrismaHelper.getMembershipClient().households.findMany({
       skip: from,
       take: size,
     });

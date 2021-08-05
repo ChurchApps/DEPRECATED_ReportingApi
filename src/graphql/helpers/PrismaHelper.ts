@@ -4,7 +4,7 @@ export class PrismaHelper {
 
     static existingClient: PrismaClient = null;
 
-    static getClient = () => {
+    static getMembershipClient = () => {
         if (PrismaHelper.existingClient === null) {
             const url = process.env.DB_PRISMA_MEMBERSHIP;
             console.log(url);

@@ -12,7 +12,7 @@ export class PersonResolver {
     const { id } = args.where;
     if (!id) throw new UserInputError('user_id is required');
     const churchId = ctx.me?.churchId;
-    const person = await PrismaHelper.getClient().people.findFirst({
+    const person = await PrismaHelper.getMembershipClient().people.findFirst({
       where: { id, churchId, }
     });
     return person;
@@ -22,7 +22,7 @@ export class PersonResolver {
     Authorization.requirePermission(ctx.me, MembershipPermissions.people.view);
     const { from, size } = PaginationHelper.initPagination(args.pagination);
     const churchId = ctx.me?.churchId;
-    let people = await PrismaHelper.getClient().people.findMany({
+    let people = await PrismaHelper.getMembershipClient().people.findMany({
       skip: from,
       take: size,
       where: { ...args.where, churchId, },

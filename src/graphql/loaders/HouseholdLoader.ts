@@ -27,9 +27,3 @@ export class HouseholdLoader {
   static getLoader = (): HouseholdLoaderType => new DataLoader<string, HouseHold | null>(HouseholdLoader.getHousehold);
 
 }
-
-
-
-
-
-

@@ -12,6 +12,29 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type AttendanceSession = {
+  __typename?: 'AttendanceSession';
+  churchId?: Maybe<Scalars['String']>;
+  group?: Maybe<Group>;
+  groupId?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
+  serviceTimeId?: Maybe<Scalars['ID']>;
+  sessionDate?: Maybe<Scalars['DateTime']>;
+  visits: Array<AttendanceVisit>;
+};
+
+export type AttendanceVisit = {
+  __typename?: 'AttendanceVisit';
+  addedBy?: Maybe<Scalars['String']>;
+  checkinTime?: Maybe<Scalars['DateTime']>;
+  churchId?: Maybe<Scalars['String']>;
+  groupId?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
+  person?: Maybe<Person>;
+  personId?: Maybe<Scalars['ID']>;
+  visitDate?: Maybe<Scalars['DateTime']>;
+};
+
 export type CorePagination = {
   from?: Maybe<Scalars['Int']>;
   size?: Maybe<Scalars['Int']>;
@@ -121,6 +144,7 @@ export type PersonsResult = {
 
 export type Query = {
   __typename?: 'Query';
+  attendanceSessions?: Maybe<Array<AttendanceSession>>;
   group?: Maybe<Group>;
   groups?: Maybe<Array<Group>>;
   household?: Maybe<HouseHold>;
@@ -128,6 +152,11 @@ export type Query = {
   people: Array<Maybe<Person>>;
   person?: Maybe<Person>;
   q?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryAttendanceSessionsArgs = {
+  pagination?: Maybe<CorePagination>;
 };
 
 

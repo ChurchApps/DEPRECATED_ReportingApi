@@ -1,16 +1,27 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient as PrismaMembershipClient } from '../../../prisma/membership/client'
+import { PrismaClient as PrismaAttendanceClient } from '../../../prisma/attendance/client'
 
 export class PrismaHelper {
 
-    static existingClient: PrismaClient = null;
+    static membershipClient: PrismaMembershipClient = null;
+    static attendanceClient: PrismaAttendanceClient = null;
 
-    static getClient = () => {
-        if (PrismaHelper.existingClient === null) {
+    static getMembershipClient = () => {
+        if (PrismaHelper.membershipClient === null) {
             const url = process.env.DB_PRISMA_MEMBERSHIP;
             console.log(url);
-            PrismaHelper.existingClient = new PrismaClient({ datasources: { db: { url } } });
+            PrismaHelper.membershipClient = new PrismaMembershipClient({ datasources: { db: { url },  } });
         }
-        return PrismaHelper.existingClient;
+        return PrismaHelper.membershipClient;
+    }
+
+    static getAttendanceClient = () => {
+        if (PrismaHelper.attendanceClient === null) {
+            const url = process.env.DB_PRISMA_ATTENDANCE;
+            console.log(url);
+            PrismaHelper.attendanceClient = new PrismaAttendanceClient({ datasources: { db: { url } } });
+        }
+        return PrismaHelper.attendanceClient;
     }
 
 }

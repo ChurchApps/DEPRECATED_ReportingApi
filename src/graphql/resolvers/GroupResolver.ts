@@ -7,13 +7,13 @@ export class GroupResolver {
   private static groupQuery = async (root: unknown, args: QueryGroupArgs, ctx: ReqContext): Promise<Group | null> => {
     const { id } = args.where
     if (!id) throw new UserInputError('group_id is required')
-    const group = await PrismaHelper.getClient().groups.findFirst({ where: { id } });
+    const group = await PrismaHelper.getMembershipClient().groups.findFirst({ where: { id } });
     return group;
   };
 
   private static groupsQuery = async (root: any, args: QueryGroupsArgs, ctx: ReqContext): Promise<Group[] | null> => {
     const { from, size } = PaginationHelper.initPagination(args.pagination)
-    let groups = await PrismaHelper.getClient().groups.findMany({
+    let groups = await PrismaHelper.getMembershipClient().groups.findMany({
       skip: from,
       take: size,
       include: {

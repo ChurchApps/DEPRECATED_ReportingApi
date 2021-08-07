@@ -14,7 +14,7 @@ export class PeopleFromHouseholdLoader {
   private static getPeopleFromHousehold = async (args: string[]) => {
     try {
       const ids = _.uniq(args)
-      const people = await PrismaHelper.getClient().people.findMany({
+      const people = await PrismaHelper.getMembershipClient().people.findMany({
         where: {
           householdId: { in: ids }
         }

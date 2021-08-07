@@ -9,7 +9,7 @@ export class HouseholdLoader {
   private static getHousehold = async (args: string[]) => {
     try {
       const ids = _.uniq(args)
-      const households = await PrismaHelper.getClient().households.findMany({
+      const households = await PrismaHelper.getMembershipClient().households.findMany({
         where: {
           id: {
             in: ids

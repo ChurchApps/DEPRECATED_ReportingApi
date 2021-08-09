@@ -56,11 +56,12 @@ model services {
 }
 
 model sessions {
-  id            String    @id @db.Char(11)
-  churchId      String?   @db.Char(11)
-  groupId       String?   @db.Char(11)
-  serviceTimeId String?   @db.Char(11)
-  sessionDate   DateTime? @db.DateTime(0)
+  id            String          @id @db.Char(11)
+  churchId      String?         @db.Char(11)
+  groupId       String?         @db.Char(11)
+  serviceTimeId String?         @db.Char(11)
+  sessionDate   DateTime?       @db.DateTime(0)
+  visits        visitSessions[]
 
   @@index([churchId], name: "churchId")
   @@index([groupId], name: "groupId")
@@ -78,10 +79,12 @@ model settings {
 }
 
 model visitSessions {
-  id        String  @id @db.Char(11)
-  churchId  String? @db.Char(11)
-  visitId   String? @db.Char(11)
-  sessionId String? @db.Char(11)
+  id        String    @id @db.Char(11)
+  churchId  String?   @db.Char(11)
+  visitId   String?   @db.Char(11)
+  sessionId String?   @db.Char(11)
+  visit     visits?   @relation(fields: [visitId], references: [id])
+  session   sessions? @relation(fields: [sessionId], references: [id])
 
   @@index([churchId], name: "churchId")
   @@index([sessionId], name: "sessionId")
@@ -89,14 +92,15 @@ model visitSessions {
 }
 
 model visits {
-  id          String    @id @db.Char(11)
-  churchId    String?   @db.Char(11)
-  personId    String?   @db.Char(11)
-  serviceId   String?   @db.Char(11)
-  groupId     String?   @db.Char(11)
-  visitDate   DateTime? @db.DateTime(0)
-  checkinTime DateTime? @db.DateTime(0)
-  addedBy     String?   @db.Char(11)
+  id          String          @id @db.Char(11)
+  churchId    String?         @db.Char(11)
+  personId    String?         @db.Char(11)
+  serviceId   String?         @db.Char(11)
+  groupId     String?         @db.Char(11)
+  visitDate   DateTime?       @db.DateTime(0)
+  checkinTime DateTime?       @db.DateTime(0)
+  addedBy     String?         @db.Char(11)
+  session     visitSessions[]
 
   @@index([churchId], name: "churchId")
   @@index([groupId], name: "groupId")

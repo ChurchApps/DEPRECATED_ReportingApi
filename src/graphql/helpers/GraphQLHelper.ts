@@ -3,7 +3,7 @@ import depthLimit from 'graphql-depth-limit'
 import { importSchema } from 'graphql-import';
 import resolvers from '../resolvers'
 import { ReqContext } from '../types/ServerTypes';
-import { HouseholdLoader, PeopleFromHouseholdLoader } from '../loaders'
+import { GroupLoader, HouseholdLoader, PeopleFromHouseholdLoader, PersonLoader, SessionVisitLoader } from '../loaders'
 import { Authorization } from './Authorization';
 
 export class GraphQLHelper {
@@ -21,6 +21,9 @@ export class GraphQLHelper {
                 }
                 ctx.peopleFromHouseHoldLoader = PeopleFromHouseholdLoader.getLoader()
                 ctx.householdLoader = HouseholdLoader.getLoader()
+                ctx.groupLoader = GroupLoader.getLoader()
+                ctx.sessionVisitLoader = SessionVisitLoader.getLoader()
+                ctx.personLoader = PersonLoader.getLoader()
 
                 return ctx
             },

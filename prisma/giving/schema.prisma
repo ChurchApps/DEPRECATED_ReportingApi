@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DB_PRISMA_GIVING")
+}
+
+model customers {
+  id       String  @id @db.VarChar(255)
+  churchId String? @db.Char(11)
+  personId String? @db.Char(11)
+}
+
+model donationBatches {
+  id        String      @id @db.Char(11)
+  churchId  String?     @db.Char(11)
+  name      String?     @db.VarChar(50)
+  batchDate DateTime?   @db.DateTime(0)
+  donations donations[]
+}
+
+model donations {
+  id              String           @id @db.Char(11)
+  churchId        String?          @db.Char(11)
+  batchId         String?          @db.Char(11)
+  personId        String?          @db.Char(11)
+  donationDate    DateTime?        @db.DateTime(0)
+  amount          Float?
+  method          String?          @db.VarChar(50)
+  methodDetails   String?          @db.VarChar(255)
+  notes           String?          @db.Text
+  donationBatches donationBatches? @relation(fields: [batchId], references: [id])
+  fundDonations   fundDonations[]
+}
+
+model eventLogs {
+  id         String    @id @db.VarChar(255)
+  churchId   String?   @db.Char(11)
+  customerId String?   @db.VarChar(255)
+  provider   String?   @db.VarChar(50)
+  status     String?   @db.VarChar(50)
+  eventType  String?   @db.VarChar(50)
+  message    String?   @db.Text
+  created    DateTime? @db.DateTime(0)
+  resolved   Boolean?
+}
+
+model fundDonations {
+  id         String     @id @db.Char(11)
+  churchId   String?    @db.Char(11)
+  donationId String?    @db.Char(11)
+  fundId     String?    @db.Char(11)
+  amount     Float?
+  fund       funds?     @relation(fields: [fundId], references: [id])
+  donation   donations? @relation(fields: [donationId], references: [id])
+}
+
+model funds {
+  id            String          @id @db.Char(11)
+  churchId      String?         @db.Char(11)
+  name          String?         @db.VarChar(50)
+  productId     String?         @db.VarChar(50)
+  removed       Boolean?        @db.Bit(1)
+  fundDonations fundDonations[]
+}
+
+model gateways {
+  id         String  @id @db.Char(11)
+  churchId   String? @db.Char(11)
+  provider   String? @db.VarChar(50)
+  publicKey  String? @db.VarChar(255)
+  privateKey String? @db.VarChar(255)
+  webhookKey String? @db.VarChar(255)
+  productId  String? @db.VarChar(255)
+}
+
+model settings {
+  id       String   @id @db.Char(11)
+  churchId String?  @db.Char(11)
+  keyName  String?  @db.VarChar(255)
+  value    String?  @db.Text
+  public   Boolean? @db.Bit(1)
+
+  @@index([churchId], name: "churchId")
+}
+
+model subscriptionFunds {
+  id             String  @id @db.VarChar(11)
+  churchId       String  @db.VarChar(11)
+  subscriptionId String? @db.Char(255)
+  fundId         String? @db.VarChar(11)
+  amount         Float?
+}
+
+model subscriptions {
+  id         String  @id @db.VarChar(255)
+  churchId   String? @db.Char(11)
+  personId   String? @db.VarChar(11)
+  customerId String? @db.VarChar(255)
+}

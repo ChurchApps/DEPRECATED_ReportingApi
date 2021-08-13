@@ -32,10 +32,3 @@ export class PeopleFromHouseholdLoader {
   public static getLoader = (): PeopleFromHouseholdLoaderType => new DataLoader<string, IHouseholdPerson | null>(PeopleFromHouseholdLoader.getPeopleFromHousehold);
 
 }
-
-
-
-
-
-
-

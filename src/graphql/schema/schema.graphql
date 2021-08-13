@@ -2,6 +2,7 @@
 # import * from 'group.graphql'
 # import * from 'household.graphql'
 # import * from 'Attendance.graphql'
+# import * from 'Giving.graphql'
 
 scalar DateTime
 

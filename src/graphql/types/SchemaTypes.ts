@@ -53,6 +53,47 @@ export type DateTimeNullableFilter = {
   notIn?: Maybe<Scalars['DateTime']>;
 };
 
+export type GivingDonation = {
+  __typename?: 'GivingDonation';
+  amount?: Maybe<Scalars['Float']>;
+  batchId?: Maybe<Scalars['ID']>;
+  donationBatch?: Maybe<GivingDonationBatch>;
+  donationDate?: Maybe<Scalars['DateTime']>;
+  id: Scalars['ID'];
+  method?: Maybe<Scalars['String']>;
+  methodDetails?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  person?: Maybe<Person>;
+  personId?: Maybe<Scalars['ID']>;
+};
+
+export type GivingDonationBatch = {
+  __typename?: 'GivingDonationBatch';
+  batchDate?: Maybe<Scalars['DateTime']>;
+  churchId?: Maybe<Scalars['String']>;
+  donations?: Maybe<Array<GivingDonation>>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export type GivingFund = {
+  __typename?: 'GivingFund';
+  churchId?: Maybe<Scalars['String']>;
+  fundDonations?: Maybe<Array<GivingFundDonation>>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  productId?: Maybe<Scalars['String']>;
+  removed?: Maybe<Scalars['Boolean']>;
+};
+
+export type GivingFundDonation = {
+  __typename?: 'GivingFundDonation';
+  amount?: Maybe<Scalars['Float']>;
+  donation?: Maybe<GivingDonation>;
+  donationId?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
+};
+
 export type Group = {
   __typename?: 'Group';
   categoryName?: Maybe<Scalars['String']>;
@@ -145,6 +186,9 @@ export type PersonsResult = {
 export type Query = {
   __typename?: 'Query';
   attendanceSessions?: Maybe<Array<AttendanceSession>>;
+  givingDonationBatches?: Maybe<Array<GivingDonationBatch>>;
+  givingFundDonations?: Maybe<Array<GivingFundDonation>>;
+  givingFunds?: Maybe<Array<GivingFund>>;
   group?: Maybe<Group>;
   groups?: Maybe<Array<Group>>;
   household?: Maybe<HouseHold>;
@@ -156,6 +200,21 @@ export type Query = {
 
 
 export type QueryAttendanceSessionsArgs = {
+  pagination?: Maybe<CorePagination>;
+};
+
+
+export type QueryGivingDonationBatchesArgs = {
+  pagination?: Maybe<CorePagination>;
+};
+
+
+export type QueryGivingFundDonationsArgs = {
+  pagination?: Maybe<CorePagination>;
+};
+
+
+export type QueryGivingFundsArgs = {
   pagination?: Maybe<CorePagination>;
 };
 

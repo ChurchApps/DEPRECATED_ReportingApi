@@ -7,6 +7,10 @@ import {
   PeopleFromHouseholdLoaderType,
   SessionVisitLoaderType,
   PersonLoaderType,
+  FundDonationFromFundLoaderType,
+  DonationBatchLoaderType,
+  DonationsFromDonationBatchLoaderType,
+  DonationLoaderType
 } from '../loaders'
 
 export type ReqContext = ExpressContext & {
@@ -17,4 +21,8 @@ export type ReqContext = ExpressContext & {
   groupLoader: GroupLoaderType
   sessionVisitLoader: SessionVisitLoaderType
   personLoader: PersonLoaderType
+  fundDonationFromFundLoader: FundDonationFromFundLoaderType
+  donationBatchLoader: DonationBatchLoaderType
+  donationsFromDonationBatchLoader: DonationsFromDonationBatchLoaderType
+  donationsLoader: DonationLoaderType
 }

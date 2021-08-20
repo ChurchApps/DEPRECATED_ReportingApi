@@ -17,7 +17,6 @@ export class FundDonationFromFundLoader {
           donation: true
         }
       })
-      console.log('FundDonationFromFundLoader -> fundDonations -> fundDonations', fundDonations)
       return args.map((id) => fundDonations.filter(fd => fd.fundId === id));
     } catch (error) {
       console.error(error);

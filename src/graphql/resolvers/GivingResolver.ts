@@ -10,34 +10,59 @@ import {
   GivingDonationBatch,
   GivingDonation,
 } from '../types'
-import { PaginationHelper, PrismaHelper } from '../helpers'
+import { Authorization, PaginationHelper, PrismaHelper } from '../helpers'
 import { funds, donations, fundDonations, donationBatches } from '../../../prisma/giving/client'
+import { DonationPermissions } from '../../helpers'
 
 export class GivingResolver {
 
   private static givingFundsQuery = async (root: any, args: QueryGivingFundsArgs, ctx: ReqContext): Promise<GivingFund[] | null> => {
+    Authorization.requirePermission(ctx.me, DonationPermissions.donations.view);
+    const churchId = ctx.me?.churchId;
+    if (!churchId) {
+      return []
+    }
     const { from, size } = PaginationHelper.initPagination(args.pagination);
     const funds = await PrismaHelper.getGivingClient().funds.findMany({
       skip: from,
       take: size,
+      where: {
+        churchId
+      }
     });
     
     return funds
   }
   private static givingFundDonationsQuery = async (root: any, args: QueryGivingFundDonationsArgs, ctx: ReqContext): Promise<GivingFundDonation[] | null> => {
+    Authorization.requirePermission(ctx.me, DonationPermissions.donations.view);
+    const churchId = ctx.me?.churchId;
+    if (!churchId) {
+      return []
+    }
     const { from, size } = PaginationHelper.initPagination(args.pagination);
     const fundDonations = await PrismaHelper.getGivingClient().fundDonations.findMany({
       skip: from,
       take: size,
+      where: {
+        churchId
+      }
     });
     
     return fundDonations
   }
   private static givingDonationBatchesQuery = async (root: any, args: QueryGivingDonationBatchesArgs, ctx: ReqContext): Promise<GivingDonationBatch[] | null> => {
+    Authorization.requirePermission(ctx.me, DonationPermissions.donations.view);
+    const churchId = ctx.me?.churchId;
+    if (!churchId) {
+      return []
+    }
     const { from, size } = PaginationHelper.initPagination(args.pagination);
     const donationBatches = await PrismaHelper.getGivingClient().donationBatches.findMany({
       skip: from,
       take: size,
+      where: {
+        churchId
+      }
     });
     
     return donationBatches

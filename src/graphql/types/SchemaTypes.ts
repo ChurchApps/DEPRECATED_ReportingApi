@@ -20,7 +20,7 @@ export type AttendanceSession = {
   id: Scalars['ID'];
   serviceTimeId?: Maybe<Scalars['ID']>;
   sessionDate?: Maybe<Scalars['DateTime']>;
-  visits: Array<AttendanceVisit>;
+  visits: AttendanceVisit[];
 };
 
 export type AttendanceVisit = {
@@ -71,7 +71,7 @@ export type GivingDonationBatch = {
   __typename?: 'GivingDonationBatch';
   batchDate?: Maybe<Scalars['DateTime']>;
   churchId?: Maybe<Scalars['String']>;
-  donations?: Maybe<Array<GivingDonation>>;
+  donations?: Maybe<GivingDonation[]>;
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
 };
@@ -79,7 +79,7 @@ export type GivingDonationBatch = {
 export type GivingFund = {
   __typename?: 'GivingFund';
   churchId?: Maybe<Scalars['String']>;
-  fundDonations?: Maybe<Array<GivingFundDonation>>;
+  fundDonations?: Maybe<GivingFundDonation[]>;
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   productId?: Maybe<Scalars['String']>;
@@ -101,7 +101,7 @@ export type Group = {
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   parentPickup?: Maybe<Scalars['Boolean']>;
-  people?: Maybe<Array<Person>>;
+  people?: Maybe<Person[]>;
   removed?: Maybe<Scalars['Boolean']>;
   trackAttendance?: Maybe<Scalars['Boolean']>;
 };
@@ -112,7 +112,7 @@ export type GroupWhereInput = {
 
 export type GroupsResult = {
   __typename?: 'GroupsResult';
-  edges: Array<Group>;
+  edges: Group[];
   total: Scalars['Int'];
 };
 
@@ -121,7 +121,7 @@ export type HouseHold = {
   churchId?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
-  people?: Maybe<Array<Person>>;
+  people?: Maybe<Person[]>;
 };
 
 export type HouseHoldWhereInput = {
@@ -151,7 +151,7 @@ export type Person = {
   email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['String']>;
-  groups?: Maybe<Array<Group>>;
+  groups?: Maybe<Group[]>;
   homePhone?: Maybe<Scalars['String']>;
   household?: Maybe<HouseHold>;
   householdId?: Maybe<Scalars['String']>;
@@ -179,21 +179,21 @@ export type PersonWhereInput = {
 
 export type PersonsResult = {
   __typename?: 'PersonsResult';
-  edges: Array<Person>;
+  edges: Person[];
   total: Scalars['Int'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  attendanceSessions?: Maybe<Array<AttendanceSession>>;
-  givingDonationBatches?: Maybe<Array<GivingDonationBatch>>;
-  givingFundDonations?: Maybe<Array<GivingFundDonation>>;
-  givingFunds?: Maybe<Array<GivingFund>>;
+  attendanceSessions?: Maybe<AttendanceSession[]>;
+  givingDonationBatches?: Maybe<GivingDonationBatch[]>;
+  givingFundDonations?: Maybe<GivingFundDonation[]>;
+  givingFunds?: Maybe<GivingFund[]>;
   group?: Maybe<Group>;
-  groups?: Maybe<Array<Group>>;
+  groups?: Maybe<Group[]>;
   household?: Maybe<HouseHold>;
-  households?: Maybe<Array<HouseHold>>;
-  people: Array<Maybe<Person>>;
+  households?: Maybe<HouseHold[]>;
+  people: Maybe<Person>[];
   person?: Maybe<Person>;
   q?: Maybe<Scalars['String']>;
 };

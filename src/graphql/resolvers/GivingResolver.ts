@@ -21,7 +21,7 @@ export class GivingResolver {
       skip: from,
       take: size,
     });
-    
+
     return funds
   }
   private static givingFundDonationsQuery = async (root: any, args: QueryGivingFundDonationsArgs, ctx: ReqContext): Promise<GivingFundDonation[] | null> => {
@@ -30,7 +30,7 @@ export class GivingResolver {
       skip: from,
       take: size,
     });
-    
+
     return fundDonations
   }
   private static givingDonationBatchesQuery = async (root: any, args: QueryGivingDonationBatchesArgs, ctx: ReqContext): Promise<GivingDonationBatch[] | null> => {
@@ -39,7 +39,7 @@ export class GivingResolver {
       skip: from,
       take: size,
     });
-    
+
     return donationBatches
   }
 
@@ -49,7 +49,7 @@ export class GivingResolver {
     }
     return
   }
-  
+
   private static donationResolver = async (root: fundDonations, args: null, ctx: ReqContext): Promise<GivingDonation | null> => {
     if (root.donationId) {
       return ctx.donationsLoader.load(root.donationId);

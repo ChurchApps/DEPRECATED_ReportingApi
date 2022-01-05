@@ -1,14 +1,23 @@
 import _ from 'lodash'
 import { AttendanceSession, AttendanceVisit, Group, Person, QueryAttendanceSessionsArgs, ReqContext } from '../types'
-import { PaginationHelper, PrismaHelper } from '../helpers'
+import { Authorization, PaginationHelper, PrismaHelper } from '../helpers'
+import { AttendancePermissions } from '../../helpers'
 
 export class AttendanceResolver {
 
   private static attendanceSessionsQuery = async (root: any, args: QueryAttendanceSessionsArgs, ctx: ReqContext): Promise<AttendanceSession[] | null> => {
+    Authorization.requirePermission(ctx.me, AttendancePermissions.attendance.view);
+    const churchId = ctx.me?.churchId;
+    if (!churchId) {
+      return []
+    }
     const { from, size } = PaginationHelper.initPagination(args.pagination);
     const sessions = await PrismaHelper.getAttendanceClient().sessions.findMany({
       skip: from,
       take: size,
+      where: {
+        churchId
+      }
     });
     return sessions as AttendanceSession[]
   }

@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "copy-assets": "ts-node tools/copyAssets",
+    "copy-files": "copyfiles prisma/**/* dist/",
     "codegen": "graphql-codegen",
     "exec-deploy-staging": "serverless deploy --stage Staging",
     "deploy-staging": "npm-run-all build exec-deploy-staging",
@@ -14,7 +15,7 @@
     "initdb": "ts-node tools/initdb",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "tsc": "tsc",
-    "build": "npm-run-all clean lint prisma:membership:gen prisma:attendance:gen tsc",
+    "build": "npm-run-all clean lint prisma:membership:gen prisma:attendance:gen copy-files tsc",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "start": "node .",

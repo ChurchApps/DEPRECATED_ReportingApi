@@ -10,7 +10,7 @@ export class DonationBatchLoader {
   private static getDonationBatch = async (args: string[]) => {
     try {
       const ids = _.uniq(args)
-      const donationBatches = await PrismaHelper.getGivingClient().donationBatches.findMany({
+      const batches = await PrismaHelper.getGivingClient().donationBatches.findMany({
         where: {
           id: {
             in: ids
@@ -18,7 +18,7 @@ export class DonationBatchLoader {
         }
       })
 
-      return args.map((id) => donationBatches.find((r: donationBatches) => r.id === id));
+      return args.map((id) => batches.find((r: donationBatches) => r.id === id));
     } catch (error) {
       console.error(error);
       return args.map(() => null);

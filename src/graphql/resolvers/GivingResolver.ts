@@ -17,30 +17,30 @@ export class GivingResolver {
 
   private static givingFundsQuery = async (root: any, args: QueryGivingFundsArgs, ctx: ReqContext): Promise<GivingFund[] | null> => {
     const { from, size } = PaginationHelper.initPagination(args.pagination);
-    const funds = await PrismaHelper.getGivingClient().funds.findMany({
+    const result = await PrismaHelper.getGivingClient().funds.findMany({
       skip: from,
       take: size,
     });
 
-    return funds
+    return result
   }
   private static givingFundDonationsQuery = async (root: any, args: QueryGivingFundDonationsArgs, ctx: ReqContext): Promise<GivingFundDonation[] | null> => {
     const { from, size } = PaginationHelper.initPagination(args.pagination);
-    const fundDonations = await PrismaHelper.getGivingClient().fundDonations.findMany({
+    const result = await PrismaHelper.getGivingClient().fundDonations.findMany({
       skip: from,
       take: size,
     });
 
-    return fundDonations
+    return result
   }
   private static givingDonationBatchesQuery = async (root: any, args: QueryGivingDonationBatchesArgs, ctx: ReqContext): Promise<GivingDonationBatch[] | null> => {
     const { from, size } = PaginationHelper.initPagination(args.pagination);
-    const donationBatches = await PrismaHelper.getGivingClient().donationBatches.findMany({
+    const result = await PrismaHelper.getGivingClient().donationBatches.findMany({
       skip: from,
       take: size,
     });
 
-    return donationBatches
+    return result
   }
 
   private static fundDonationsResolver = async (root: funds, args: null, ctx: ReqContext): Promise<GivingFundDonation[] | null> => {

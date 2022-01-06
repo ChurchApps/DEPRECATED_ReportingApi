@@ -7,6 +7,11 @@ provider:
  timeout: 10
  region: us-east-2
 
+package:
+  exclude:
+    - node_modules/@prisma/engines/**
+    - node_modules/@prisma/engines-version/**
+
 functions:
  api:
    handler: lambda.universal

@@ -7,15 +7,12 @@ const init = async () => {
   console.log("Connecting");
   Pool.initPool();
 
-  const givingTables: { title: string, file: string }[] = [
-    { title: "Funds", file: "funds.mysql" },
-    { title: "Donations", file: "donations.mysql" },
-    { title: "Fund Donations", file: "fundDonations.mysql" },
-    { title: "Donation Batches", file: "donationBatches.mysql" },
-    { title: "Gateways", file: "gateways.mysql" }
+  const reportingTables: { title: string, file: string }[] = [
+    { title: "Reports", file: "reports.mysql" },
+    { title: "Columns", file: "columns.mysql" },
   ];
 
-  await initTables("Giving", givingTables);
+  await initTables("Reporting", reportingTables);
 }
 
 const initTables = async (displayName: string, tables: { title: string, file: string }[]) => {
@@ -23,7 +20,7 @@ const initTables = async (displayName: string, tables: { title: string, file: st
   console.log("SECTION: " + displayName);
   for (const table of tables) await DBCreator.runScript(table.title, "./tools/dbScripts/" + table.file, false);
 }
-/*
+
 init()
   .then(() => { console.log("Database Created"); process.exit(0); })
   .catch((ex) => {
@@ -31,5 +28,3 @@ init()
     console.log("Database not created due to errors");
     process.exit(0);
   });
-
-*/

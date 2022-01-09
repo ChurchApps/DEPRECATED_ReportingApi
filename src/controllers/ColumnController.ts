@@ -1,16 +1,16 @@
 import { controller, httpPost, httpGet, interfaces, requestParam, httpDelete } from "inversify-express-utils";
 import express from "express";
 import { ReportingBaseController } from "./ReportingBaseController"
-import { Report } from "../models"
+import { Column } from "../models"
 import { ReportingPermissions } from '../helpers/ReportingPermissions'
 
-@controller("/reports")
-export class ReportController extends ReportingBaseController {
+@controller("/columns")
+export class ColumnController extends ReportingBaseController {
 
-  @httpGet("/public")
-  public async getPublic(req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
+  @httpGet("/report/:reportId")
+  public async getForReport(@requestParam("reportId") reportId: string, req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapperAnon(req, res, async () => {
-      return this.repositories.report.convertAllToModel("", await this.repositories.report.loadPublic());
+      return this.repositories.column.convertAllToModel("", await this.repositories.column.loadForReport(reportId));
     });
   }
 
@@ -19,7 +19,7 @@ export class ReportController extends ReportingBaseController {
   public async get(@requestParam("id") id: string, req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (au) => {
       if (!au.checkAccess(ReportingPermissions.reports.edit)) return this.json({}, 401);
-      else return this.repositories.report.convertToModel(au.churchId, await this.repositories.report.load(au.churchId, id));
+      else return this.repositories.column.convertToModel(au.churchId, await this.repositories.column.load(au.churchId, id));
     });
   }
 
@@ -27,19 +27,19 @@ export class ReportController extends ReportingBaseController {
   public async getAll(req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (au) => {
       if (!au.checkAccess(ReportingPermissions.reports.edit)) return this.json({}, 401);
-      else return this.repositories.report.convertAllToModel(au.churchId, await this.repositories.report.loadAll(au.churchId));
+      else return this.repositories.column.convertAllToModel(au.churchId, await this.repositories.column.loadAll(au.churchId));
     });
   }
 
   @httpPost("/")
-  public async save(req: express.Request<{}, {}, Report[]>, res: express.Response): Promise<interfaces.IHttpActionResult> {
+  public async save(req: express.Request<{}, {}, Column[]>, res: express.Response): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (au) => {
       if (!au.checkAccess(ReportingPermissions.reports.edit)) return this.json({}, 401);
       else {
-        const promises: Promise<Report>[] = [];
-        req.body.forEach(report => { report.churchId = au.churchId; promises.push(this.repositories.report.save(report)); });
+        const promises: Promise<Column>[] = [];
+        req.body.forEach(column => { column.churchId = au.churchId; promises.push(this.repositories.column.save(column)); });
         const result = await Promise.all(promises);
-        return this.repositories.report.convertAllToModel(au.churchId, result);
+        return this.repositories.column.convertAllToModel(au.churchId, result);
       }
     });
   }
@@ -48,7 +48,7 @@ export class ReportController extends ReportingBaseController {
   public async delete(@requestParam("id") id: string, req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (au) => {
       if (!au.checkAccess(ReportingPermissions.reports.edit)) return this.json({}, 401);
-      else await this.repositories.report.delete(au.churchId, id);
+      else await this.repositories.column.delete(au.churchId, id);
     });
   }
 

@@ -2,7 +2,7 @@ import DataLoader from 'dataloader'
 import _ from 'lodash'
 import { PrismaHelper } from '../helpers'
 import { GivingDonation } from '../types/SchemaTypes'
-import { donations } from '../../../prisma/giving/client'
+import { donations } from '../../prisma/giving/client'
 
 export type DonationLoaderType = DataLoader<string, GivingDonation | null>;
 

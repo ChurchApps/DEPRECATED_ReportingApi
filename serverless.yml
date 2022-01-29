@@ -6,11 +6,12 @@ provider:
  memorySize: 512
  timeout: 10
  region: us-east-2
-
+ lambdaHashingVersion: '20220128' 
 package:
   exclude:
     - node_modules/@prisma/engines/**
     - node_modules/@prisma/engines-version/**
+    - src/prisma/**
 
 functions:
  api:

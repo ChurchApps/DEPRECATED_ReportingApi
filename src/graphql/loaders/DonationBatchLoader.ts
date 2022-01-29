@@ -2,7 +2,7 @@ import DataLoader from 'dataloader'
 import _ from 'lodash'
 import { PrismaHelper } from '../helpers'
 import { GivingDonationBatch } from '../types/SchemaTypes'
-import { donationBatches } from '../../../prisma/giving/client'
+import { donationBatches } from '../../prisma/giving/client'
 
 export type DonationBatchLoaderType = DataLoader<string, GivingDonationBatch | null>;
 

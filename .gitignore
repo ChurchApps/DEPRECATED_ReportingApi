@@ -106,4 +106,4 @@ dist
 .tern-port
 
 # prisma generated
-prisma/**/*/client
+/src/prisma/**/*/client

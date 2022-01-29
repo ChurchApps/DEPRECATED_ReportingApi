@@ -9,9 +9,16 @@ provider:
  lambdaHashingVersion: '20220128' 
 package:
   exclude:
-    - node_modules/@prisma/engines/**
-    - node_modules/@prisma/engines-version/**
-    - src/prisma/**
+    - '!node_modules/.prisma/attendance/client/libquery_engine-*'
+    - 'node_modules/.prisma/attendance/libquery_engine-rhel-*'
+    - '!node_modules/.prisma/attendance/libquery_engine-*'
+    - '!node_modules/.prisma/giving/client/libquery_engine-*'
+    - 'node_modules/.prisma/giving/libquery_engine-rhel-*'
+    - '!node_modules/.prisma/giving/libquery_engine-*'
+    - '!node_modules/.prisma/membership/client/libquery_engine-*'
+    - 'node_modules/.prisma/membership/libquery_engine-rhel-*'
+    - '!node_modules/.prisma/membership/libquery_engine-*'
+    - '!node_modules/@prisma/engines/**'
 
 functions:
  api:

@@ -11,7 +11,7 @@ import {
   GivingDonation,
 } from '../types'
 import { Authorization, PaginationHelper, PrismaHelper } from '../helpers'
-import { funds, donations, fundDonations, donationBatches } from '../../prisma/giving/client'
+import { funds, donations, fundDonations, donationBatches } from '../../.prisma/client'
 import { DonationPermissions } from '../../helpers'
 
 export class GivingResolver {

@@ -1,6 +1,6 @@
-import { PrismaClient as PrismaMembershipClient } from '../../../node_modules/.prisma/membership/client'
-import { PrismaClient as PrismaAttendanceClient } from '../../../node_modules/.prisma/attendance/client'
-import { PrismaClient as PrismaGivingClient } from '../../../node_modules/.prisma/giving/client'
+import { PrismaClient as PrismaMembershipClient } from '../../.prisma/membership/client'
+import { PrismaClient as PrismaAttendanceClient } from '../../.prisma/attendance/client'
+import { PrismaClient as PrismaGivingClient } from '../../.prisma/giving/client'
 
 export class PrismaHelper {
 

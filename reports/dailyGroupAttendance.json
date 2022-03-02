@@ -1,0 +1,43 @@
+{
+  "displayName": "Group attendance by day - {groupName}",
+  "description": "Total counts of how many people attended a group each day.",
+  "queries": [
+    {
+      "depth": 0,
+      "keyName": "main",
+      "db": "attendance",
+      "sql": "SELECT Date(sessionDate), count(*) FROM visitSessions vs INNER JOIN sessions s on s.id=vs.sessionId WHERE vs.churchId=?churchId and s.groupId=?groupId GROUP BY DATE(sessionDate) ORDER BY DATE(sessionDate)"
+    }
+  ],
+  "paramters": [
+    {
+      "keyName": "churchId",
+      "source": "au",
+      "sourceKey": "churchId"
+    },
+    {
+      "keyName": "groupId",
+      "source": "queryString",
+      "sourceKey": "groupId"
+    }
+  ],
+  "columns": [
+    {
+      "header": "Date",
+      "value": "main.sessionDate",
+      "formatter": "date"
+    },
+    {
+      "header": "Date",
+      "value": "main.sessionDate",
+      "formatter": "date"
+    }
+  ],
+  "permissions": [
+    {
+      "apiName": "AccessApi",
+      "contentType": "Attendance",
+      "action": "View"
+    }
+  ]
+}

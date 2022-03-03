@@ -1,0 +1,38 @@
+{
+  "displayName": "Birthdays by Month",
+  "description": "All people with a birthday this month.",
+  "queries": [
+    {
+      "depth": 0,
+      "keyName": "main",
+      "db": "membership",
+      "sql": "SELECT concat('5/', dayofmonth(birthDate)) birthDay, displayName FROM people WHERE churchId=:churchId AND birthDate IS NOT NULL AND month(birthDate) = 5 ORDER BY dayofmonth(birthDate)"
+    }
+  ],
+  "parameters": [
+    {
+      "keyName": "churchId",
+      "source": "au",
+      "sourceKey": "churchId"
+    }
+  ],
+  "columns": [
+    {
+      "header": "Birthday",
+      "value": "main.birthDay",
+      "formatter": "string"
+    },
+    {
+      "header": "Name",
+      "value": "main.displayName",
+      "formatter": "string"
+    }
+  ],
+  "permissions": [
+    {
+      "apiName": "MembershipApi",
+      "contentType": "People",
+      "action": "View"
+    }
+  ]
+}

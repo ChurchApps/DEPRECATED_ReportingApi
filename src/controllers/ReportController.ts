@@ -25,8 +25,6 @@ export class ReportController extends ReportingBaseController {
       this.populateRootParamters(report, au, req);
       await this.runQueries(report, 0);
 
-      // run queries
-
       // format data
 
       return report;
@@ -63,14 +61,14 @@ export class ReportController extends ReportingBaseController {
     // const sql = "select * from sessions where churchId=?";
 
 
-    query.sql.match(/:[A-Za-z0-9]{1,99}/g).forEach(m => {
+    query.sql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => {
       const keyName = m.replace(":", "");
       const p = ArrayHelper.getOne(report.parameters, "keyName", keyName)
       parameters.push(p.value);
     });
 
     let sql = query.sql;
-    query.sql.match(/:[A-Za-z0-9]{1,99}/g).forEach(m => { sql = sql.replace(m, "?") });
+    query.sql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => { sql = sql.replace(m, "?") });
 
 
     query.value = await this.repositories.report.run(query.db, sql, parameters);

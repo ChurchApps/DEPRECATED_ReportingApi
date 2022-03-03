@@ -6,10 +6,10 @@
       "depth": 0,
       "keyName": "main",
       "db": "attendance",
-      "sql": "SELECT Date(sessionDate), count(*) FROM visitSessions vs INNER JOIN sessions s on s.id=vs.sessionId WHERE vs.churchId=?churchId and s.groupId=?groupId GROUP BY DATE(sessionDate) ORDER BY DATE(sessionDate)"
+      "sql": "SELECT Date(sessionDate), count(*) FROM visitSessions vs INNER JOIN sessions s on s.id=vs.sessionId WHERE vs.churchId=:churchId and s.groupId=:groupId GROUP BY DATE(sessionDate) ORDER BY DATE(sessionDate)"
     }
   ],
-  "paramters": [
+  "parameters": [
     {
       "keyName": "churchId",
       "source": "au",

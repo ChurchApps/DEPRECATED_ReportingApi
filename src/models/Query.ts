@@ -3,5 +3,5 @@ export class Query {
   public keyName?: string;
   public db?: string;
   public sql?: string;
-  public value?: string;
+  public value?: any[];
 }

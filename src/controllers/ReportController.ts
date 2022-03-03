@@ -1,7 +1,7 @@
 import { controller, httpPost, httpGet, interfaces, requestParam, httpDelete } from "inversify-express-utils";
 import express from "express";
 import { ReportingBaseController } from "./ReportingBaseController"
-import { OldReport, Report, Query } from "../models"
+import { OldReport, Report, Query, ReportResult } from "../models"
 import { ReportingPermissions } from '../helpers/ReportingPermissions'
 import fs from "fs"
 import { AuthenticatedUser } from "../apiBase/auth";
@@ -27,12 +27,22 @@ export class ReportController extends ReportingBaseController {
 
       // format data
 
-      return report;
+
+      // return report;
+      return this.convertToResult(report);
+
 
       // if (!au.checkAccess(ReportingPermissions.reports.edit)) return this.json({}, 401);
       // else return this.repositories.report.convertToModel(au.churchId, await this.repositories.report.load(au.churchId, id));
     });
   }
+
+  private convertToResult(report: Report) {
+    const result: ReportResult = { displayName: report.displayName, description: report.description, tables: [], columns: report.columns }
+    report.queries.forEach(q => result.tables.push({ keyName: q.keyName, data: q.value }));
+    return result;
+  }
+
 
   private populateRootParamters(report: Report, au: AuthenticatedUser, req: express.Request<{}, {}, null>) {
     report.parameters?.forEach(p => {
@@ -58,8 +68,6 @@ export class ReportController extends ReportingBaseController {
 
   private async runQuery(query: Query, report: Report) {
     const parameters: any[] = [];
-    // const sql = "select * from sessions where churchId=?";
-
 
     query.sql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => {
       const keyName = m.replace(":", "");
@@ -69,12 +77,7 @@ export class ReportController extends ReportingBaseController {
 
     let sql = query.sql;
     query.sql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => { sql = sql.replace(m, "?") });
-
-
     query.value = await this.repositories.report.run(query.db, sql, parameters);
-
-    // query.value = await this.repositories.report.run(query.db, sql, ["JNZUfFMKiWI"]);
-
   }
 
 

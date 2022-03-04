@@ -12,6 +12,15 @@ import { ArrayHelper } from "../apiBase";
 @controller("/reports")
 export class ReportController extends ReportingBaseController {
 
+  @httpGet("/:keyName")
+  public async get(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
+    return this.actionWrapper(req, res, async (au) => {
+      const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
+      const report: Report = JSON.parse(contents);
+      return report;
+    });
+  }
+
 
   @httpGet("/:keyName/run")
   public async run(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
@@ -27,10 +36,8 @@ export class ReportController extends ReportingBaseController {
 
       // format data
 
-
       // return report;
       return this.convertToResult(report);
-
 
       // if (!au.checkAccess(ReportingPermissions.reports.edit)) return this.json({}, 401);
       // else return this.repositories.report.convertToModel(au.churchId, await this.repositories.report.load(au.churchId, id));
@@ -48,8 +55,11 @@ export class ReportController extends ReportingBaseController {
     report.parameters?.forEach(p => {
       if (p.source === "au") {
         if (p.sourceKey === "churchId") p.value = au.churchId;
-      } else if (p.source === "queryString") {
-        p.value = req.query[p.sourceKey].toString();
+      } else {
+        console.log(JSON.stringify(p))
+        console.log(p.keyName);
+        console.log(req.query[p.keyName])
+        p.value = req.query[p.keyName]?.toString() || "";
       }
     })
   }

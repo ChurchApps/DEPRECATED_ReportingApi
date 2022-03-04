@@ -1,4 +1,5 @@
 {
+  "keyName": "birthdays",
   "displayName": "Birthdays by Month",
   "description": "All people with a birthday this month.",
   "queries": [
@@ -6,7 +7,7 @@
       "depth": 0,
       "keyName": "main",
       "db": "membership",
-      "sql": "SELECT concat('5/', dayofmonth(birthDate)) birthDay, displayName FROM people WHERE churchId=:churchId AND birthDate IS NOT NULL AND month(birthDate) = 5 ORDER BY dayofmonth(birthDate)"
+      "sql": "SELECT concat(:month, '/', dayofmonth(birthDate)) birthDay, displayName FROM people WHERE churchId=:churchId AND birthDate IS NOT NULL AND month(birthDate) = :month ORDER BY dayofmonth(birthDate)"
     }
   ],
   "parameters": [
@@ -14,6 +15,61 @@
       "keyName": "churchId",
       "source": "au",
       "sourceKey": "churchId"
+    },
+    {
+      "keyName": "month",
+      "displayName": "Month",
+      "source": "dropdown",
+      "options": [
+        {
+          "value": "1",
+          "text": "January"
+        },
+        {
+          "value": "2",
+          "text": "February"
+        },
+        {
+          "value": "3",
+          "text": "March"
+        },
+        {
+          "value": "4",
+          "text": "April"
+        },
+        {
+          "value": "5",
+          "text": "May"
+        },
+        {
+          "value": "6",
+          "text": "June"
+        },
+        {
+          "value": "7",
+          "text": "July"
+        },
+        {
+          "value": "8",
+          "text": "August"
+        },
+        {
+          "value": "9",
+          "text": "September"
+        },
+        {
+          "value": "10",
+          "text": "October"
+        },
+        {
+          "value": "11",
+          "text": "November"
+        },
+        {
+          "value": "12",
+          "text": "December"
+        }
+      ]
     }
   ],
   "columns": [

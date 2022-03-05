@@ -6,7 +6,14 @@
       "depth": 0,
       "keyName": "main",
       "db": "attendance",
-      "sql": "SELECT Date(sessionDate) as sessionDate, count(*) as attendees FROM visitSessions vs INNER JOIN sessions s on s.id=vs.sessionId WHERE s.groupId=:groupId GROUP BY DATE(sessionDate) ORDER BY DATE(sessionDate)"
+      "sqlLines": [
+        "SELECT Date(sessionDate) as sessionDate, count(*) as attendees",
+        "FROM visitSessions vs",
+        "INNER JOIN sessions s on s.id=vs.sessionId",
+        "WHERE s.groupId=:groupId",
+        "GROUP BY DATE(sessionDate)",
+        "ORDER BY DATE(sessionDate)"
+      ]
     }
   ],
   "parameters": [

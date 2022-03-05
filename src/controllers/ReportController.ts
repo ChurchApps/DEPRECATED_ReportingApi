@@ -79,14 +79,16 @@ export class ReportController extends ReportingBaseController {
   private async runQuery(query: Query, report: Report) {
     const parameters: any[] = [];
 
-    query.sql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => {
+    const storedSql = query.sqlLines.join(" ");
+
+    storedSql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => {
       const keyName = m.replace(":", "");
       const p = ArrayHelper.getOne(report.parameters, "keyName", keyName)
       parameters.push(p.value);
     });
 
-    let sql = query.sql;
-    query.sql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => { sql = sql.replace(m, "?") });
+    let sql = storedSql;
+    storedSql.match(/:[A-Za-z0-9]{1,99}/g)?.forEach(m => { sql = sql.replace(m, "?") });
     query.value = await this.repositories.report.run(query.db, sql, parameters);
   }
 

@@ -7,7 +7,17 @@
       "depth": 0,
       "keyName": "main",
       "db": "membership",
-      "sql": "SELECT concat(:month, '/', dayofmonth(birthDate)) birthDay, displayName FROM people WHERE churchId=:churchId AND birthDate IS NOT NULL AND month(birthDate) = :month ORDER BY dayofmonth(birthDate)"
+      "sqlLines": [
+        "SELECT concat(:month, '/', dayofmonth(p.birthDate)) birthDay, p.displayName",
+        "FROM people p",
+        "LEFT JOIN groupMembers gm on gm.personId=p.id",
+        "WHERE p.churchId=:churchId",
+        "AND (:groupId = '' OR gm.groupId=:groupId)",
+        "AND p.birthDate IS NOT NULL",
+        "AND month(p.birthDate) = :month",
+        "GROUP BY p.birthDate, p.displayName",
+        "ORDER BY dayofmonth(p.birthDate)"
+      ]
     }
   ],
   "parameters": [
@@ -20,56 +30,13 @@
       "keyName": "month",
       "displayName": "Month",
       "source": "dropdown",
-      "options": [
-        {
-          "value": "1",
-          "text": "January"
-        },
-        {
-          "value": "2",
-          "text": "February"
-        },
-        {
-          "value": "3",
-          "text": "March"
-        },
-        {
-          "value": "4",
-          "text": "April"
-        },
-        {
-          "value": "5",
-          "text": "May"
-        },
-        {
-          "value": "6",
-          "text": "June"
-        },
-        {
-          "value": "7",
-          "text": "July"
-        },
-        {
-          "value": "8",
-          "text": "August"
-        },
-        {
-          "value": "9",
-          "text": "September"
-        },
-        {
-          "value": "10",
-          "text": "October"
-        },
-        {
-          "value": "11",
-          "text": "November"
-        },
-        {
-          "value": "12",
-          "text": "December"
-        }
-      ]
+      "sourceKey": "month"
+    },
+    {
+      "keyName": "groupId",
+      "displayName": "Group",
+      "source": "dropdown",
+      "sourceKey": "group"
     }
   ],
   "columns": [

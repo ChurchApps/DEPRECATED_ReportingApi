@@ -45,7 +45,7 @@ export class ReportController extends ReportingBaseController {
   }
 
   private convertToResult(report: Report) {
-    const result: ReportResult = { displayName: report.displayName, description: report.description, tables: [], columns: report.columns }
+    const result: ReportResult = { displayName: report.displayName, description: report.description, tables: [], outputs: report.outputs }
     report.queries.forEach(q => result.tables.push({ keyName: q.keyName, data: q.value }));
     return result;
   }

@@ -23,9 +23,28 @@
       "sourceKey": "churchId"
     },
     {
+      "keyName": "campusId",
+      "displayName": "Campus",
+      "source": "dropdown",
+      "sourceKey": "campus"
+    },
+    {
+      "keyName": "serviceId",
+      "displayName": "Service",
+      "source": "dropdown",
+      "sourceKey": "service"
+    },
+    {
+      "keyName": "serviceTime",
+      "displayName": "Service Time",
+      "source": "dropdown",
+      "sourceKey": "serviceTime"
+    },
+    {
       "keyName": "groupId",
-      "source": "queryString",
-      "sourceKey": "groupId"
+      "displayName": "Group",
+      "source": "dropdown",
+      "sourceKey": "group"
     }
   ],
   "columns": [

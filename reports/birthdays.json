@@ -39,16 +39,21 @@
       "sourceKey": "group"
     }
   ],
-  "columns": [
+  "outputs": [
     {
-      "header": "Birthday",
-      "value": "main.birthDay",
-      "formatter": "string"
-    },
-    {
-      "header": "Name",
-      "value": "main.displayName",
-      "formatter": "string"
+      "outputType": "table",
+      "columns": [
+        {
+          "header": "Birthday",
+          "value": "main.birthDay",
+          "formatter": "string"
+        },
+        {
+          "header": "Name",
+          "value": "main.displayName",
+          "formatter": "string"
+        }
+      ]
     }
   ],
   "permissions": [

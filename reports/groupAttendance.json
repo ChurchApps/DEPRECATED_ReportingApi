@@ -82,33 +82,25 @@
   "outputs": [
     {
       "outputType": "tree",
+      "groupings": [
+        1,
+        1
+      ],
       "columns": [
         {
           "header": "Service Time",
-          "value": "main.serviceTimeName",
+          "value": "serviceTimeName",
           "formatter": "string"
         },
         {
-          "header": "Service",
-          "value": "main.serviceName",
+          "header": "Group",
+          "value": "groups.groupName",
           "formatter": "string"
         },
         {
           "header": "Person",
-          "value": "people.fullName",
+          "value": "people.displayName",
           "formatter": "string"
-        }
-      ],
-      "groupings": [
-        {
-          "columns": [
-            "main.serviceTimeName"
-          ]
-        },
-        {
-          "columns": [
-            "main.groupName"
-          ]
         }
       ]
     }

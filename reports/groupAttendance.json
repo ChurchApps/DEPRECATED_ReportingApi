@@ -25,12 +25,12 @@
       "keyName": "people",
       "db": "membership",
       "sqlLines": [
-        "SELECT id, fullName from people where churchId=:churchId"
+        "SELECT id, displayName from people where churchId=:churchId and id in (:peopleIds)"
       ],
       "joinConditions": [
         {
-          "parent": "main.personId",
-          "child": "people.id"
+          "parent": "personId",
+          "child": "id"
         }
       ]
     },
@@ -43,8 +43,8 @@
       ],
       "joinConditions": [
         {
-          "parent": "main.groupId",
-          "child": "groups.id"
+          "parent": "groupId",
+          "child": "id"
         }
       ]
     }

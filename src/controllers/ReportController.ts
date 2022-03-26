@@ -32,28 +32,69 @@ export class ReportController extends ReportingBaseController {
       // check permissions
 
       this.populateRootParamters(report, au, req);
-      let depth = 0;
-      let keepGoing = true;
-      while (keepGoing) {
-        keepGoing = await this.runQueries(report, depth);
-        if (keepGoing) this.populateQueryResultParameters(report, depth)
-        depth++;
-      }
+      await this.runAllQueries(report);
+
+      const resultTable = this.combineResults(report);
 
 
       // format data
 
       // return report;
-      return this.convertToResult(report);
+      return this.convertToResult(report, resultTable);
 
       // if (!au.checkAccess(ReportingPermissions.reports.edit)) return this.json({}, 401);
       // else return this.repositories.report.convertToModel(au.churchId, await this.repositories.report.load(au.churchId, id));
     });
   }
 
-  private convertToResult(report: Report) {
-    const result: ReportResult = { displayName: report.displayName, description: report.description, tables: [], outputs: report.outputs }
-    report.queries.forEach(q => result.tables.push({ keyName: q.keyName, data: q.value }));
+  private combineResults(report: Report) {
+    const result = [...report.queries[0].value];
+    let depth = 0;
+    let keepGoing = true;
+    while (keepGoing) {
+      const queries: Query[] = ArrayHelper.getAll(report.queries, "depth", depth);
+      keepGoing = queries.length > 0;
+      queries.forEach(q => {
+        if (q.keyName !== "main") this.combineResult(result, q);
+      })
+      depth++;
+    }
+    return result;
+  }
+
+  private combineResult(result: any[], query: Query) {
+    // Only works with one condition right now
+    // Also only works with 1-1 match. Needs to be expanded for many-to-one
+    query.value.forEach(v => {
+      query.joinConditions.forEach(jc => {
+        const childValue = v[jc.child];
+        ArrayHelper.getAll(result, jc.parent, childValue).forEach(r => {
+          this.copyValues(r, query.keyName, v);
+        });
+      });
+    });
+  }
+
+  private copyValues(target: any, childKey: string, child: any) {
+    Object.getOwnPropertyNames(child).forEach(name => {
+      target[childKey + "." + name] = child[name]
+    })
+  }
+
+  private async runAllQueries(report: Report) {
+    let depth = 0;
+    let keepGoing = true;
+    while (keepGoing) {
+      keepGoing = await this.runQueries(report, depth);
+      if (keepGoing) this.populateQueryResultParameters(report, depth)
+      depth++;
+    }
+  }
+
+  private convertToResult(report: Report, table: any[]) {
+    const result: ReportResult = { displayName: report.displayName, description: report.description, outputs: report.outputs }
+    // report.queries.forEach(q => result.tables.push({ keyName: q.keyName, data: q.value }));
+    result.table = table
     return result;
   }
 

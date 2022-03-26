@@ -1,0 +1,123 @@
+{
+  "keyName": "groupAttendance",
+  "displayName": "Group Attendance",
+  "description": "Total counts of how many people attended each week.",
+  "queries": [
+    {
+      "depth": 0,
+      "keyName": "main",
+      "db": "attendance",
+      "sqlLines": [
+        "SELECT ser.name as serviceName, st.name as serviceTimeName, s.groupId, v.personId",
+        " FROM visits v",
+        " INNER JOIN visitSessions vs on vs.churchId=v.churchId AND vs.visitId=v.id",
+        " INNER JOIN sessions s on s.id=vs.sessionId",
+        " INNER JOIN serviceTimes st on st.id=s.serviceTimeId",
+        " INNER JOIN services ser on ser.id=st.serviceId",
+        " WHERE v.churchId=:churchId",
+        " AND :serviceId IN (0, ser.id) ",
+        " AND s.sessionDate BETWEEN :week AND DATE_ADD(:week, INTERVAL 7 DAY)",
+        " ORDER by ser.name, st.name"
+      ]
+    },
+    {
+      "depth": 1,
+      "keyName": "people",
+      "db": "membership",
+      "sqlLines": [
+        "SELECT id, fullName from people where churchId=:churchId"
+      ],
+      "joinConditions": [
+        {
+          "parent": "main.personId",
+          "child": "people.id"
+        }
+      ]
+    },
+    {
+      "depth": 1,
+      "keyName": "groups",
+      "db": "membership",
+      "sqlLines": [
+        "SELECT id, name as groupName from groups where churchId=:churchId"
+      ],
+      "joinConditions": [
+        {
+          "parent": "main.groupId",
+          "child": "groups.id"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "keyName": "churchId",
+      "source": "au",
+      "sourceKey": "churchId"
+    },
+    {
+      "keyName": "campusId",
+      "displayName": "Campus",
+      "source": "dropdown",
+      "sourceKey": "campus"
+    },
+    {
+      "keyName": "serviceId",
+      "displayName": "Service",
+      "source": "dropdown",
+      "sourceKey": "service"
+    },
+    {
+      "keyName": "week",
+      "displayName": "Week",
+      "source": "date",
+      "sourceKey": "week"
+    },
+    {
+      "keyName": "peopleIds",
+      "source": "query",
+      "sourceKey": "main.personId"
+    }
+  ],
+  "outputs": [
+    {
+      "outputType": "tree",
+      "columns": [
+        {
+          "header": "Service Time",
+          "value": "main.serviceTimeName",
+          "formatter": "string"
+        },
+        {
+          "header": "Service",
+          "value": "main.serviceName",
+          "formatter": "string"
+        },
+        {
+          "header": "Person",
+          "value": "people.fullName",
+          "formatter": "string"
+        }
+      ],
+      "groupings": [
+        {
+          "columns": [
+            "main.serviceTimeName"
+          ]
+        },
+        {
+          "columns": [
+            "main.groupName"
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": [
+    {
+      "apiName": "AccessApi",
+      "contentType": "Attendance",
+      "action": "View"
+    }
+  ]
+}

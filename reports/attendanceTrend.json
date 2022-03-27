@@ -62,12 +62,12 @@
       "columns": [
         {
           "header": "Week",
-          "value": "main.week",
+          "value": "week",
           "formatter": "date"
         },
         {
           "header": "Visits",
-          "value": "main.visits",
+          "value": "visits",
           "formatter": "number"
         }
       ]
@@ -77,12 +77,12 @@
       "columns": [
         {
           "header": "Week",
-          "value": "main.week",
+          "value": "week",
           "formatter": "date"
         },
         {
           "header": "Visits",
-          "value": "main.visits",
+          "value": "visits",
           "formatter": "number"
         }
       ]

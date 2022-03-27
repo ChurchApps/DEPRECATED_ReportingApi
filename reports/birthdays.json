@@ -45,12 +45,12 @@
       "columns": [
         {
           "header": "Birthday",
-          "value": "main.birthDay",
+          "value": "birthDay",
           "formatter": "string"
         },
         {
           "header": "Name",
-          "value": "main.displayName",
+          "value": "displayName",
           "formatter": "string"
         }
       ]

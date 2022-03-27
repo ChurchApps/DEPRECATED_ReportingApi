@@ -50,12 +50,12 @@
   "columns": [
     {
       "header": "Date",
-      "value": "main.sessionDate",
+      "value": "sessionDate",
       "formatter": "date"
     },
     {
       "header": "Attendees",
-      "value": "main.attendees",
+      "value": "attendees",
       "formatter": "date"
     }
   ],

@@ -71,7 +71,8 @@
       "keyName": "week",
       "displayName": "Week",
       "source": "date",
-      "sourceKey": "week"
+      "sourceKey": "week",
+      "defaultValue": "lastSunday"
     },
     {
       "keyName": "peopleIds",

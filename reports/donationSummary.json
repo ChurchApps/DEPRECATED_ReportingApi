@@ -29,13 +29,15 @@
       "keyName": "startDate",
       "displayName": "Start Date",
       "source": "date",
-      "sourceKey": "date"
+      "sourceKey": "date",
+      "defaultValue": "lastYear"
     },
     {
       "keyName": "endDate",
       "displayName": "End Date",
       "source": "date",
-      "sourceKey": "date"
+      "sourceKey": "date",
+      "defaultValue": "yesterday"
     }
   ],
   "outputs": [

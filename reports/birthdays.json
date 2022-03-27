@@ -56,11 +56,5 @@
       ]
     }
   ],
-  "permissions": [
-    {
-      "apiName": "MembershipApi",
-      "contentType": "People",
-      "action": "View"
-    }
-  ]
+  "permissions": []
 }

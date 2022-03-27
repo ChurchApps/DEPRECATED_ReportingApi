@@ -61,9 +61,13 @@
   ],
   "permissions": [
     {
-      "apiName": "AccessApi",
-      "contentType": "Attendance",
-      "action": "View"
+      "requireOne": [
+        {
+          "apiName": "AttendanceApi",
+          "contentType": "Attendance",
+          "action": "View"
+        }
+      ]
     }
   ]
 }

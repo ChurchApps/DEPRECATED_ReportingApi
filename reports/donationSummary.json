@@ -64,9 +64,13 @@
   ],
   "permissions": [
     {
-      "apiName": "AccessApi",
-      "contentType": "Attendance",
-      "action": "View"
+      "requireOne": [
+        {
+          "api": "GivingApi",
+          "contentType": "Donations",
+          "action": "View Summary"
+        }
+      ]
     }
   ]
 }

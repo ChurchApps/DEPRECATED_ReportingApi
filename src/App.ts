@@ -7,7 +7,7 @@ import { bindings } from "./inversify.config";
 import express from "express";
 import { CustomAuthProvider } from "./apiBase/auth";
 import cors from "cors"
-import { GraphQLHelper } from "./graphql/helpers/GraphQLHelper";
+// import { GraphQLHelper } from "./graphql/helpers/GraphQLHelper";
 
 export const init = async () => {
   dotenv.config();

@@ -1,10 +1,10 @@
 const { createServer, proxy } = require('aws-serverless-express');
 const { init } = require('./dist/App');
-const { Pool } = require('./dist/apiBase/pool');
+//const { Pool } = require('./dist/apiBase/pool');
 const { Environment } = require('./dist/helpers');
 
 Environment.init(process.env.APP_ENV);
-Pool.initPool();
+//Pool.initPool();
 
 module.exports.universal = function universal(event, context) {
   init().then(app => {

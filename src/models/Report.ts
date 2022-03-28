@@ -1,4 +1,4 @@
-import { Query, Parameter, Output, Permission } from ".";
+import { Query, Parameter, Output, PermissionGroup } from ".";
 
 export class Report {
   public displayName?: string;
@@ -6,5 +6,5 @@ export class Report {
   public queries?: Query[];
   public parameters?: Parameter[];
   public outputs?: Output[];
-  public permissions?: Permission[];
+  public permissions?: PermissionGroup[];
 }

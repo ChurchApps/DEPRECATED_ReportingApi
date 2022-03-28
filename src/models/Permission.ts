@@ -1,5 +1,5 @@
 export class Permission {
-  public apiName?: string;
+  public api?: string;
   public contentType?: string;
   public action?: string;
 }

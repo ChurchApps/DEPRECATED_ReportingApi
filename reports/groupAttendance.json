@@ -110,7 +110,7 @@
     {
       "requireOne": [
         {
-          "apiName": "AttendanceApi",
+          "api": "AttendanceApi",
           "contentType": "Attendance",
           "action": "View"
         }

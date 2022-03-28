@@ -1,11 +1,4 @@
 {
-  "accountsAppRoot": "http://localhost:3401",
   "appEnv": "dev",
-  "appName": "AccessApi",
-  "contentRoot": "http://localhost:3402",
-  "emailOnRegistration": false,
-  "fileStore": "disc",
-  "mailSystem": "",
-  "s3Bucket": "",
-  "supportEmail": "support@churchapps.org"
+  "appName": "ReportingApi"
 }

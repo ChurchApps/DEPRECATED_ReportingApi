@@ -21,8 +21,8 @@ export class ReportResultHelper {
   private static combineResult(result: any[], query: Query) {
     // Only works with one condition right now
     // Also only works with 1-1 match. Needs to be expanded for many-to-one
-    query.value.forEach(v => {
-      query.joinConditions.forEach(jc => {
+    query.value?.forEach(v => {
+      query.joinConditions?.forEach(jc => {
         const childValue = v[jc.child];
         ArrayHelper.getAll(result, jc.parent, childValue).forEach(r => {
           ReportResultHelper.copyValues(r, query.keyName, v);
@@ -32,7 +32,7 @@ export class ReportResultHelper {
   }
 
   private static copyValues(target: any, childKey: string, child: any) {
-    Object.getOwnPropertyNames(child).forEach(name => {
+    Object.getOwnPropertyNames(child)?.forEach(name => {
       target[childKey + "." + name] = child[name]
     })
   }

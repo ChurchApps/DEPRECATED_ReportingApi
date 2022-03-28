@@ -23,11 +23,12 @@ export const init = async () => {
   };
 
   const server = app.setConfig(configFunction).build();
+  /*
   const graphQLServer = GraphQLHelper.getServer();
   await graphQLServer.start();
   graphQLServer.applyMiddleware({
     app: server,
     path: '/graphql',
-  })
+  })*/
   return server;
 }

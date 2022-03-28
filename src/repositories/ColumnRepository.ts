@@ -6,6 +6,7 @@ import { UniqueIdHelper } from "../helpers";
 
 @injectable()
 export class ColumnRepository {
+  /*
 
   public async save(column: Column) {
     if (UniqueIdHelper.isMissing(column.id)) return this.create(column); else return this.update(column);
@@ -51,6 +52,6 @@ export class ColumnRepository {
     const result: Column[] = [];
     data.forEach(d => result.push(this.convertToModel(churchId, d)));
     return result;
-  }
+  }*/
 
 }

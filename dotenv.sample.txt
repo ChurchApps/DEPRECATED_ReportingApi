@@ -13,5 +13,5 @@ DB_PRISMA_MEMBERSHIP=mysql://USERNAME:PASSWORD@SERVER:$3306/attendance
 
 ENCRYPTION_KEY=aSecretKeyOfExactly192BitsLength
 
-JWT_SECRET_KEY=this is a test key that is a sentence
+JWT_SECRET=this is a test key that is a sentence
 JWT_EXPIRATION=2 days

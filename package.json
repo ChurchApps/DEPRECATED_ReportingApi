@@ -27,7 +27,6 @@
   "author": "Live Church Solutions",
   "dependencies": {
     "@churchapps/apihelper": "^0.0.5",
-    "@types/node": "^17.0.8",
     "aws-serverless-express": "^3.4.0",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
@@ -46,6 +45,7 @@
     "@types/express": "^4.17.13",
     "@types/inversify": "^2.0.33",
     "@types/mysql": "^2.15.20",
+    "@types/node": "^20.5.6",
     "aws-sdk": "^2.1051.0",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",

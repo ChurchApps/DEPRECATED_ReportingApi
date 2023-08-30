@@ -7,6 +7,10 @@ provider:
   timeout: 10
   region: us-east-2
   lambdaHashingVersion: "20220128"
+  iam:
+    role: arn:aws:iam::428019619026:role/ChurchAppsRole
+  environment:
+    APP_ENV: ${lower(${opt:stage, self:provider.stage})}
 
 functions:
   api:
@@ -17,6 +21,7 @@ functions:
 
 plugins:
   - serverless-layers
+  - serverless-plugin-utils
 
 custom:
   serverless-layers:

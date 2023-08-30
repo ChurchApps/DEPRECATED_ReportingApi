@@ -1,7 +1,4 @@
 import { injectable } from "inversify";
-import { DB } from "../apiBase/db";
-import { OldReport } from "../models";
-import { UniqueIdHelper } from "../helpers";
 import { DBHelper } from "../helpers/DBHelper";
 
 

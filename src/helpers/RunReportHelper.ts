@@ -1,5 +1,5 @@
 import { Repositories } from "../repositories";
-import { ArrayHelper } from "../apiBase";
+import { ArrayHelper } from "@churchapps/apihelper";
 import { Parameter, Query, Report, ReportResult } from "../models";
 
 export class RunReportHelper {

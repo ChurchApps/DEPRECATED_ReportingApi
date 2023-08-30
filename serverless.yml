@@ -1,29 +1,23 @@
 service: reporting-api
 
 provider:
- name: aws
- runtime: nodejs14.x
- memorySize: 1024
- timeout: 10
- region: us-east-2
- lambdaHashingVersion: '20220128' 
-package:
-  patterns:
-    - '!node_modules/.prisma/client/libquery_engine-*'
-    - 'node_modules/.prisma/client/libquery_engine-rhel-*'
-    - '!node_modules/prisma/libquery_engine-*'
-    - '!node_modules/@prisma/engines/**'
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 1024
+  timeout: 10
+  region: us-east-2
+  lambdaHashingVersion: "20220128"
 
 functions:
- api:
-   handler: lambda.universal
-   events:
-     - http: ANY {proxy+}
-     - http: ANY /
+  api:
+    handler: lambda.universal
+    events:
+      - http: ANY {proxy+}
+      - http: ANY /
 
 plugins:
   - serverless-layers
-  
+
 custom:
   serverless-layers:
     dependenciesPath: ./package.json

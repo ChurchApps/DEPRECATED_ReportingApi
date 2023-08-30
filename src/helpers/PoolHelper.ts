@@ -1,23 +1,25 @@
 import dotenv from "dotenv";
 import mysql from "mysql";
-import { ArrayHelper, EnvironmentBase } from ".";
+import { ArrayHelper, AwsHelper } from "@churchapps/apihelper";
+import { Environment } from "./Environment";
 
 dotenv.config();
 
 export class PoolHelper {
   public static pools: { name: string, pool: mysql.Pool }[] = [];
 
-  public static getPool(databaseName: string) {
+  public static async getPool(databaseName: string) {
     let result = ArrayHelper.getOne(PoolHelper.pools, "name", databaseName);
     if (!result) {
-      this.initPool(databaseName);
+      await this.initPool(databaseName);
       result = ArrayHelper.getOne(PoolHelper.pools, "name", databaseName);
     }
     return result.pool;
   }
 
-  public static initPool(databaseName: string) {
+  public static async initPool(databaseName: string) {
     const connectionString = process.env["CONNECTION_STRING_" + databaseName.toUpperCase()]
+    || await AwsHelper.readParameter(`/${Environment.appEnv}/${databaseName.toLowerCase()}Api/connectionString`)
     const config = this.getConfig(connectionString);
 
     const pool = mysql.createPool({

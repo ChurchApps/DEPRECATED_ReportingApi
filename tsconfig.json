@@ -6,6 +6,9 @@
       "ESNext",
       "DOM"
     ],
+    "types": [
+      "reflect-metadata"
+    ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "target": "es6",
@@ -23,6 +26,7 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "LambdaEntry.js"
   ]
 }

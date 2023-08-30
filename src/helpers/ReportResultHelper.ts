@@ -1,4 +1,4 @@
-import { ArrayHelper } from "../apiBase";
+import { ArrayHelper } from "@churchapps/apihelper";
 import { Query, Report } from "../models";
 
 export class ReportResultHelper {

@@ -3,8 +3,7 @@ import express from "express";
 import { ReportingBaseController } from "./ReportingBaseController"
 import { Report, ReportResult, Permission } from "../models"
 import fs from "fs"
-import { AuthenticatedUser } from "../apiBase/auth";
-import { IPermission } from "../apiBase";
+import { AuthenticatedUser, IPermission } from "@churchapps/apihelper";
 import { ReportResultHelper } from "../helpers/ReportResultHelper";
 import { RunReportHelper } from "../helpers/RunReportHelper";
 

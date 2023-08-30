@@ -1,8 +1,4 @@
 import { injectable } from "inversify";
-import { DB } from "../apiBase/db";
-import { Column } from "../models";
-import { UniqueIdHelper } from "../helpers";
-
 
 @injectable()
 export class ColumnRepository {

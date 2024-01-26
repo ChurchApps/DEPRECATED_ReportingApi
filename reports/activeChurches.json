@@ -6,7 +6,7 @@
     {
       "depth": 0,
       "keyName": "main",
-      "db": "access",
+      "db": "membership",
       "sqlLines": [
         "select c.id, c.name, c.city, c.state, max(al.loginTime) as lastLogin",
         "from accessLogs al",
@@ -33,20 +33,12 @@
       "sourceKey": "provided",
       "options": [
         {
-          "text": "Accounts App",
-          "value": "AccountsApp"
-        },
-        {
           "text": "CHUMS",
-          "value": "CHUMS"
+          "value": "Chums"
         },
         {
           "text": "Lessons.church",
           "value": "Lessons.church"
-        },
-        {
-          "text": "StreamingLive",
-          "value": "StreamingLive"
         },
         {
           "text": "B1",
@@ -86,7 +78,7 @@
     {
       "requireOne": [
         {
-          "api": "AccessApi",
+          "api": "MembershipApi",
           "contentType": "Server",
           "action": "Admin"
         }

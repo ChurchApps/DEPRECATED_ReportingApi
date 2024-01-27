@@ -12,7 +12,7 @@
         "from accessLogs al",
         "inner join churches c on c.id=al.churchId and c.registrationDate<DATE_ADD(al.loginTime, INTERVAL -1 MONTH)",
         "inner join users u on u.id=al.userId and u.registrationDate<DATE_ADD(al.loginTime, INTERVAL -1 MONTH)",
-        "where (:appName='' OR al.appName=:appName)",
+        "where (:appName='' OR al.appName=:appName) and loginTime>DATE_ADD(NOW(), INTERVAL -1 YEAR)",
         "group by DATE_FORMAT(loginTime, '%y'), month(al.loginTime)",
         "order by DATE_FORMAT(loginTime, '%y'), month(al.loginTime)"
       ]

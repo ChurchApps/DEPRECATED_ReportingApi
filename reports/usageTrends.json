@@ -8,7 +8,9 @@
       "keyName": "main",
       "db": "membership",
       "sqlLines": [
-        "SELECT year, week, CONCAT(cast(year as CHAR), '-', cast(round(week/13,0)+1 as CHAR)) as quarter, b1Churches, b1Churches * 1200 as b1Value, chumsChurches, chumsChurches*864 as chumsValue, lessonsChurches, lessonsChurches*1023 as lessonsValue, (b1Churches * 1200) + (chumsChurches*864) + (lessonsChurches*1023) as totalValue",
+        "SELECT year, week, CONCAT(cast(year as CHAR), '-', cast(round(week/13,0)+1 as CHAR)) as quarter, b1Churches, b1Churches * 1200 as b1Value, chumsChurches, chumsChurches*864 as chumsValue, lessonsChurches, lessonsChurches*1023 as lessonsValue, ",
+        "round(freeShowDevices / 3) as freeShowChurches, freeShowDevices * 26.60 as freeShowValue, ",
+        "(b1Churches * 1200) + (chumsChurches*864) + (lessonsChurches*1023) + (freeShowDevices*26.60) as totalValue",
         "FROM usageTrends",
         "where week % 13 = 1",
         "ORDER BY year, week"
@@ -68,6 +70,16 @@
         {
           "header": "Value",
           "value": "lessonsValue",
+          "formatter": "dollars"
+        },
+        {
+          "header": "FreeShow",
+          "value": "freeShowChurches",
+          "formatter": "number"
+        },
+        {
+          "header": "Value",
+          "value": "freeShowValue",
           "formatter": "dollars"
         },
         {

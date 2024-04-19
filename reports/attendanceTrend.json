@@ -5,6 +5,14 @@
   "queries": [
     {
       "depth": 0,
+      "keyName": "groups",
+      "db": "membership",
+      "sqlLines": [
+        "SELECT id from groups WHERE churchId=:churchId AND removed=0 AND trackAttendance=1 AND id=COALESCE(NULLIF(:groupId,''), id)"
+      ]
+    },
+    {
+      "depth": 1,
       "keyName": "main",
       "db": "attendance",
       "sqlLines": [
@@ -16,7 +24,7 @@
         "LEFT JOIN serviceTimes st on st.id = gst.serviceTimeId",
         "LEFT JOIN services ser on ser.id = st.serviceId",
         "WHERE v.churchId=:churchId",
-        "AND :groupId IN ('', s.groupId)",
+        "AND s.groupId IN ('', :groupIds)",
         "AND :serviceTimeId IN ('', st.id)",
         "AND :serviceId IN ('', ser.id)",
         "AND :campusId IN ('', ser.campusId)",
@@ -54,6 +62,11 @@
       "displayName": "Group",
       "source": "dropdown",
       "sourceKey": "group"
+    },
+    {
+      "keyName": "groupIds",
+      "source": "query",
+      "sourceKey": "groups.id"
     }
   ],
   "outputs": [

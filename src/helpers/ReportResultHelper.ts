@@ -4,7 +4,7 @@ import { Query, Report } from "../models";
 export class ReportResultHelper {
 
   public static combineResults(report: Report) {
-    const result = [...report.queries[0].value];
+    const result = report.queries.filter(q => q.keyName === "main")[0]?.value ? [...report.queries.filter(q => q.keyName === "main")[0].value] : [];
     let depth = 0;
     let keepGoing = true;
     while (keepGoing) {

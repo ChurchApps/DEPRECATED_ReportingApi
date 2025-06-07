@@ -9,6 +9,8 @@
     "codegen": "graphql-codegen",
     "exec-deploy-staging": "serverless deploy --stage Staging",
     "deploy-staging": "npm-run-all build exec-deploy-staging",
+    "exec-deploy-demo": "serverless deploy --stage Demo",
+    "deploy-demo": "npm-run-all build exec-deploy-demo",
     "exec-deploy-prod": "serverless deploy --stage Prod",
     "deploy-prod": "npm-run-all build exec-deploy-prod",
     "initdb": "ts-node tools/initdb",

@@ -21,7 +21,6 @@ export class PoolHelper {
     const connectionString = process.env["CONNECTION_STRING_" + databaseName.toUpperCase()]
       || await AwsHelper.readParameter(`/${Environment.appEnv}/${databaseName.toLowerCase()}Api/connectionString`)
 
-    console.log("Parameter:", `/${Environment.appEnv}/${databaseName.toLowerCase()}Api/connectionString`);
 
     const config = this.getConfig(connectionString);
 

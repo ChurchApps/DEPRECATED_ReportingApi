@@ -19,8 +19,13 @@ export class PoolHelper {
 
   public static async initPool(databaseName: string) {
     const connectionString = process.env["CONNECTION_STRING_" + databaseName.toUpperCase()]
-    || await AwsHelper.readParameter(`/${Environment.appEnv}/${databaseName.toLowerCase()}Api/connectionString`)
+      || await AwsHelper.readParameter(`/${Environment.appEnv}/${databaseName.toLowerCase()}Api/connectionString`)
+
+    console.log("Parameter:", `/${Environment.appEnv}/${databaseName.toLowerCase()}Api/connectionString`);
+
     const config = this.getConfig(connectionString);
+
+
 
     const pool = mysql.createPool({
       connectionLimit: 3,

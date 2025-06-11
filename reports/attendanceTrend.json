@@ -24,10 +24,10 @@
         "LEFT JOIN serviceTimes st on st.id = gst.serviceTimeId",
         "LEFT JOIN services ser on ser.id = st.serviceId",
         "WHERE v.churchId=:churchId",
-        "AND s.groupId IN ('', :groupIds)",
-        "AND :serviceTimeId IN ('', st.id)",
-        "AND :serviceId IN ('', ser.id)",
-        "AND :campusId IN ('', ser.campusId)",
+        "AND (:groupId='' OR s.groupId IN (:groupIds))",
+        "AND (:serviceTimeId='' OR st.id = :serviceTimeId)",
+        "AND (:serviceId='' OR ser.id = :serviceId)",
+        "AND (:campusId='' OR ser.campusId = :campusId)",
         "GROUP BY year(v.visitDate), week(v.visitDate, 0), STR_TO_DATE(concat(year(v.visitDate), ' ', week(v.visitDate, 0), ' Sunday'), '%X %V %W')",
         "ORDER BY year(v.visitDate), week(v.visitDate, 0);"
       ]

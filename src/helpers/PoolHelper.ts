@@ -26,8 +26,7 @@ export class PoolHelper {
 
 
 
-    const pool = mysql.createPool({
-      connectionLimit: 3,
+    const pool = mysql.createPool({ connectionLimit: 3,
       host: config.host,
       port: config.port,
       database: config.database,
@@ -42,11 +41,10 @@ export class PoolHelper {
           try {
             const bytes = field.buffer();
             return (bytes[0] === 1);
-          } catch (e) { return false; }
+          } catch { return false; }
         }
         return (useDefaultTypeCasting());
-      }
-    });
+      } });
     PoolHelper.pools.push({ name: databaseName, pool })
   }
 

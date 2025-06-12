@@ -1,0 +1,20 @@
+{
+  "httpMethod": "POST",
+  "path": "/reports/test",
+  "queryStringParameters": null,
+  "headers": {
+    "Content-Type": "application/json",
+    "User-Agent": "test-agent"
+  },
+  "body": "{\"test\": \"data\", \"message\": \"POST request test\"}",
+  "isBase64Encoded": false,
+  "requestContext": {
+    "requestId": "test-post-request-123",
+    "stage": "test",
+    "resourcePath": "/reports/test",
+    "httpMethod": "POST",
+    "identity": {
+      "sourceIp": "127.0.0.1"
+    }
+  }
+}

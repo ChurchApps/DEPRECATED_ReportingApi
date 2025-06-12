@@ -19,8 +19,7 @@ export class DBHelper {
   static async getQuery(connection: PoolConnection, sql: string, params: any[]) {
     const promise: Promise<queryCallback> = new Promise((resolve, reject) => {
       connection.query(sql, params, async (ex, rows) => {
-        if (ex) { LoggingHelper.getCurrent().error(ex); reject(ex); }
-        else { resolve(rows); }
+        if (ex) { LoggingHelper.getCurrent().error(ex); reject(ex); } else { resolve(rows); }
       });
     });
     const query: queryCallback = await promise;
@@ -30,9 +29,13 @@ export class DBHelper {
   public static async query(db: string, sql: string, params: any[]) {
     let result: any = null;
     const connection = await this.getConnection(db);
-    try { result = await this.getQuery(connection, sql, params); }
-    catch (ex) { LoggingHelper.getCurrent().error(ex); }
-    finally { connection.release(); }
+    try { 
+      result = await this.getQuery(connection, sql, params); 
+    } catch (ex) { 
+      LoggingHelper.getCurrent().error(ex); 
+    } finally { 
+      connection.release(); 
+    }
     return result;
   }
 

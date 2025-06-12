@@ -1,0 +1,20 @@
+{
+  "httpMethod": "GET",
+  "path": "/",
+  "queryStringParameters": null,
+  "headers": {
+    "Content-Type": "application/json",
+    "User-Agent": "test-agent"
+  },
+  "body": null,
+  "isBase64Encoded": false,
+  "requestContext": {
+    "requestId": "test-request-123",
+    "stage": "test",
+    "resourcePath": "/",
+    "httpMethod": "GET",
+    "identity": {
+      "sourceIp": "127.0.0.1"
+    }
+  }
+}

@@ -1,7 +1,6 @@
-import { ColumnRepository, ReportRepository } from ".";
+import { ReportRepository } from ".";
 
 export class Repositories {
-  public column: ColumnRepository;
   public report: ReportRepository;
 
   private static _current: Repositories = null;
@@ -11,7 +10,6 @@ export class Repositories {
   }
 
   constructor() {
-    this.column = new ColumnRepository();
     this.report = new ReportRepository();
   }
 }

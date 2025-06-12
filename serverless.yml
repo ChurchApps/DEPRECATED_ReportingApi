@@ -1,9 +1,6 @@
 service: reporting-api
 
 custom:
-  serverless-layers:
-    dependenciesPath: ./package.json
-    layersDeploymentBucket: "lcs-layers"
   env: ${lower(${opt:stage, self:provider.stage})}
   vpcSettings:
     prod:
@@ -11,11 +8,11 @@ custom:
         - sg-052314a1eec2f2567
       subnetIds:
         - subnet-01a6b61d749d10c46
-    current: ${ternary( ${self:custom.env}, prod, ${self:custom.vpcSettings.prod}, ~ )}
+    current: ${self:custom.vpcSettings.${self:custom.env}, ""}
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
   memorySize: 1024
   timeout: 10
   region: us-east-2
@@ -24,15 +21,37 @@ provider:
     role: arn:aws:iam::428019619026:role/ChurchAppsRole
   environment:
     APP_ENV: ${self:custom.env}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  deploymentBucket:
+    name: ${self:service}-deployments-${self:custom.env}
+    serverSideEncryption: AES256
+
+layers:
+  dependencies:
+    path: layer
+    name: ${self:service}-dependencies-${self:custom.env}
+    description: Dependencies for ${self:service}
+    compatibleRuntimes:
+      - nodejs20.x
 
 functions:
   api:
     handler: lambda.universal
+    layers:
+      - { Ref: DependenciesLambdaLayer }
     events:
       - http: ANY {proxy+}
       - http: ANY /
     vpc: ${self:custom.vpcSettings.current}
 
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!layer/**'
+    - '!tools/**'
+    - '!*.md'
+    - '!.eslint*'
+    - '!.git*'
+
 plugins:
-  - serverless-layers
   - serverless-plugin-utils

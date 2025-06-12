@@ -29,8 +29,9 @@ export class ReportController extends ReportingBaseController {
   }
 
   @httpGet("/:keyName")
-  public async get(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
-    return this.actionWrapper(req, res, async (au) => {
+  public async get(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>,
+    res: express.Response): Promise<interfaces.IHttpActionResult> {
+    return this.actionWrapper(req, res, async (_au) => {
       const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
       const report: Report = JSON.parse(contents);
       return report;
@@ -38,7 +39,8 @@ export class ReportController extends ReportingBaseController {
   }
 
   @httpGet("/:keyName/run")
-  public async run(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
+  public async run(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>,
+    res: express.Response): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (au) => {
       const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
       const report: Report = JSON.parse(contents);
@@ -111,10 +113,8 @@ export class ReportController extends ReportingBaseController {
       const uniqueTimeIds = ArrayHelper.getUniqueValues(timeIds, "serviceTimeId");
       uniqueTimeIds?.forEach((tId) => {
         const att = ArrayHelper.getOne(timeIds, "serviceTimeId", tId);
-        serviceArray.push({
-          name: att.serviceName + "-" + att.serviceTimeName,
-          value: att.serviceId + "//" + att.serviceTimeId,
-        });
+        serviceArray.push({ name: att.serviceName + "-" + att.serviceTimeName,
+          value: att.serviceId + "//" + att.serviceTimeId });
       });
     });
 
@@ -141,13 +141,11 @@ export class ReportController extends ReportingBaseController {
           }
         });
 
-        result.push({
-          displayName: person.displayName,
+        result.push({ displayName: person.displayName,
           personId: person.id,
           groupName: g.groupName,
           groupId: g.id,
-          ...attendanceStatus,
-        });
+          ...attendanceStatus });
       });
     });
 

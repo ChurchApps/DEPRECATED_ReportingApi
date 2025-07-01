@@ -20,7 +20,7 @@ export const init = async () => {
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'] }));
-    
+
     // Handle preflight requests early
     expApp.options('*', (req, res) => {
       res.header('Access-Control-Allow-Origin', '*');
@@ -28,11 +28,11 @@ export const init = async () => {
       res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
       res.sendStatus(200);
     });
-    
+
     // Handle body parsing from @codegenie/serverless-express
     expApp.use((req, res, next) => {
       const contentType = req.headers['content-type'] || '';
-      
+
       // Handle Buffer instances (most common case with serverless-express)
       if (Buffer.isBuffer(req.body)) {
         try {
@@ -65,7 +65,7 @@ export const init = async () => {
           // Silently ignore JSON parse errors for non-JSON content
         }
       }
-      
+
       next();
     });
   };

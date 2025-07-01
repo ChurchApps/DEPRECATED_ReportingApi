@@ -25,12 +25,12 @@ export class DBHelper {
   public static async query(db: string, sql: string, params: any[]) {
     let result: any = null;
     const connection = await this.getConnection(db);
-    try { 
-      result = await this.getQuery(connection, sql, params); 
-    } catch (ex) { 
-      LoggingHelper.getCurrent().error(ex); 
-    } finally { 
-      connection.release(); 
+    try {
+      result = await this.getQuery(connection, sql, params);
+    } catch (ex) {
+      LoggingHelper.getCurrent().error(ex);
+    } finally {
+      connection.release();
     }
     return result;
   }

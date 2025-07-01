@@ -18,7 +18,8 @@ module.exports = {
     'array-bracket-newline': ['error', 'never'],
     'object-property-newline': 'off',
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-    'max-len': ['error', { code: 150 }]
+    'max-len': ['error', { code: 150 }],
+    'no-console': 'error'
   },
   env: {
     node: true,

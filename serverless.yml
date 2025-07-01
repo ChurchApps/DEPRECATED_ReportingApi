@@ -25,6 +25,10 @@ provider:
   deploymentBucket:
     name: ${self:service}-deployments-${self:custom.env}
     serverSideEncryption: AES256
+  apiGateway:
+    throttle:
+      rateLimit: 5     # 5 requests per second per IP
+      burstLimit: 20   # Allow bursts up to 20 requests per second
 
 layers:
   dependencies:

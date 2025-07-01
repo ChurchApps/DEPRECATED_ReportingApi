@@ -45,18 +45,13 @@ export class ReportController extends ReportingBaseController {
       const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
       const report: Report = JSON.parse(contents);
 
-      console.log("report loaded");
 
       if (!this.checkPermissions(report, au)) return this.json({}, 401);
       else {
-        console.log("permission check passed");
         this.populateRootParamters(report, au, req);
-        console.log("parameters populated");
         await RunReportHelper.runAllQueries(report);
-        console.log("queries ran");
 
         const resultTable = ReportResultHelper.combineResults(report);
-        console.log("result table generated");
         return this.convertToResult(report, resultTable);
       }
     });

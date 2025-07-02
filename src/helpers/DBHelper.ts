@@ -3,7 +3,6 @@ import { PoolConnection } from "mysql2/promise";
 import { LoggingHelper } from "@churchapps/apihelper";
 
 export class DBHelper {
-
   // wraps in promise
   static async getConnection(databaseName: string) {
     const pool = await PoolHelper.getPool(databaseName);
@@ -34,6 +33,4 @@ export class DBHelper {
     }
     return result;
   }
-
-
 }

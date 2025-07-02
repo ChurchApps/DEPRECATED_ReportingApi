@@ -1,5 +1,5 @@
-import { init } from './App';
-import { Environment } from './helpers';
+import { init } from "./App";
+import { Environment } from "./helpers";
 const port = process.env.SERVER_PORT;
 
 Environment.init(process.env.APP_ENV).then(() => {

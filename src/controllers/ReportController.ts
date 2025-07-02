@@ -9,10 +9,12 @@ import { RunReportHelper } from "../helpers/RunReportHelper";
 
 @controller("/reports")
 export class ReportController extends ReportingBaseController {
-
   // just for the group attendance download
   @httpGet("/groupAttendanceDownload/run")
-  public async groupAttDownload(req: express.Request<{}, {}, null>, res: express.Response): Promise<interfaces.IHttpActionResult> {
+  public async groupAttDownload(
+    req: express.Request<{}, {}, null>,
+    res: express.Response
+  ): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (au) => {
       const contents = fs.readFileSync("./reports/" + "groupAttendanceDownload" + ".json", "utf8");
       const report: Report = JSON.parse(contents);
@@ -29,8 +31,11 @@ export class ReportController extends ReportingBaseController {
   }
 
   @httpGet("/:keyName")
-  public async get(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>,
-    res: express.Response): Promise<interfaces.IHttpActionResult> {
+  public async get(
+    @requestParam("keyName") keyName: string,
+    req: express.Request<{}, {}, null>,
+    res: express.Response
+  ): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (_au) => {
       const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
       const report: Report = JSON.parse(contents);
@@ -39,12 +44,14 @@ export class ReportController extends ReportingBaseController {
   }
 
   @httpGet("/:keyName/run")
-  public async run(@requestParam("keyName") keyName: string, req: express.Request<{}, {}, null>,
-    res: express.Response): Promise<interfaces.IHttpActionResult> {
+  public async run(
+    @requestParam("keyName") keyName: string,
+    req: express.Request<{}, {}, null>,
+    res: express.Response
+  ): Promise<interfaces.IHttpActionResult> {
     return this.actionWrapper(req, res, async (au) => {
       const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
       const report: Report = JSON.parse(contents);
-
 
       if (!this.checkPermissions(report, au)) return this.json({}, 401);
       else {
@@ -77,7 +84,11 @@ export class ReportController extends ReportingBaseController {
   }
 
   private convertToResult(report: Report, table: any[]) {
-    const result: ReportResult = { displayName: report.displayName, description: report.description, outputs: report.outputs };
+    const result: ReportResult = {
+      displayName: report.displayName,
+      description: report.description,
+      outputs: report.outputs
+    };
     // report.queries.forEach(q => result.tables.push({ keyName: q.keyName, data: q.value }));
     result.table = table;
     return result;
@@ -108,8 +119,10 @@ export class ReportController extends ReportingBaseController {
       const uniqueTimeIds = ArrayHelper.getUniqueValues(timeIds, "serviceTimeId");
       uniqueTimeIds?.forEach((tId) => {
         const att = ArrayHelper.getOne(timeIds, "serviceTimeId", tId);
-        serviceArray.push({ name: att.serviceName + "-" + att.serviceTimeName,
-          value: att.serviceId + "//" + att.serviceTimeId });
+        serviceArray.push({
+          name: att.serviceName + "-" + att.serviceTimeName,
+          value: att.serviceId + "//" + att.serviceTimeId
+        });
       });
     });
 
@@ -124,10 +137,7 @@ export class ReportController extends ReportingBaseController {
           const serTimeId = ser?.value.split("//")[1];
           const getValue = attendance.filter(
             (a: any) =>
-              a.groupId === g.id &&
-              a.personId === person.id &&
-              a.serviceId === serId &&
-              a.serviceTimeId === serTimeId
+              a.groupId === g.id && a.personId === person.id && a.serviceId === serId && a.serviceTimeId === serTimeId
           );
           if (getValue.length > 0) {
             attendanceStatus[ser.name] = "present";
@@ -136,11 +146,13 @@ export class ReportController extends ReportingBaseController {
           }
         });
 
-        result.push({ displayName: person.displayName,
+        result.push({
+          displayName: person.displayName,
           personId: person.id,
           groupName: g.groupName,
           groupId: g.id,
-          ...attendanceStatus });
+          ...attendanceStatus
+        });
       });
     });
 

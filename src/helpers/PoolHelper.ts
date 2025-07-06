@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import mysql from "mysql";
+import mysql from "mysql2";
 import { ArrayHelper, AwsHelper } from "@churchapps/apihelper";
 import { Environment } from "./Environment";
 

@@ -1,4 +1,4 @@
-import { controller, httpGet, interfaces, requestParam } from "inversify-express-utils";
+import { controller, httpGet, requestParam } from "inversify-express-utils";
 import express from "express";
 import { ReportingBaseController } from "./ReportingBaseController";
 import { Report, ReportResult, Permission } from "../models";
@@ -11,10 +11,7 @@ import { RunReportHelper } from "../helpers/RunReportHelper";
 export class ReportController extends ReportingBaseController {
   // just for the group attendance download
   @httpGet("/groupAttendanceDownload/run")
-  public async groupAttDownload(
-    req: express.Request<{}, {}, null>,
-    res: express.Response
-  ): Promise<interfaces.IHttpActionResult> {
+  public async groupAttDownload(req: express.Request<{}, {}, null>, res: express.Response): Promise<any> {
     return this.actionWrapper(req, res, async (au) => {
       const contents = fs.readFileSync("./reports/" + "groupAttendanceDownload" + ".json", "utf8");
       const report: Report = JSON.parse(contents);
@@ -35,7 +32,7 @@ export class ReportController extends ReportingBaseController {
     @requestParam("keyName") keyName: string,
     req: express.Request<{}, {}, null>,
     res: express.Response
-  ): Promise<interfaces.IHttpActionResult> {
+  ): Promise<any> {
     return this.actionWrapper(req, res, async (_au) => {
       const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
       const report: Report = JSON.parse(contents);
@@ -48,7 +45,7 @@ export class ReportController extends ReportingBaseController {
     @requestParam("keyName") keyName: string,
     req: express.Request<{}, {}, null>,
     res: express.Response
-  ): Promise<interfaces.IHttpActionResult> {
+  ): Promise<any> {
     return this.actionWrapper(req, res, async (au) => {
       const contents = fs.readFileSync("./reports/" + keyName + ".json", "utf8");
       const report: Report = JSON.parse(contents);

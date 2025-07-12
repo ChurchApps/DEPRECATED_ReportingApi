@@ -13,8 +13,8 @@ custom:
 provider:
   name: aws
   runtime: nodejs20.x
-  memorySize: 1024
-  timeout: 10
+  memorySize: 1024 # Keep 1024MB for complex report queries
+  timeout: 30 # Increased from 10 seconds for reporting operations
   region: us-east-2
   lambdaHashingVersion: "20220128"
   iam:
@@ -22,13 +22,16 @@ provider:
   environment:
     APP_ENV: ${self:custom.env}
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  logs:
+    httpApi:
+      logRetentionInDays: 1
   deploymentBucket:
     name: ${self:service}-deployments-${self:custom.env}
     serverSideEncryption: AES256
   apiGateway:
     throttle:
-      rateLimit: 5     # 5 requests per second per IP
-      burstLimit: 20   # Allow bursts up to 20 requests per second
+      rateLimit: 5 # 5 requests per second per IP
+      burstLimit: 20 # Allow bursts up to 20 requests per second
 
 layers:
   dependencies:
@@ -50,12 +53,12 @@ functions:
 
 package:
   patterns:
-    - '!node_modules/**'
-    - '!layer/**'
-    - '!tools/**'
-    - '!*.md'
-    - '!.eslint*'
-    - '!.git*'
+    - "!node_modules/**"
+    - "!layer/**"
+    - "!tools/**"
+    - "!*.md"
+    - "!.eslint*"
+    - "!.git*"
 
 plugins:
   - serverless-plugin-utils

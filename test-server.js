@@ -41,6 +41,6 @@ app.get('/health', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`ReportingApi server running on port ${port}`);
-  console.log(`Environment: ${process.env.APP_ENV || 'unknown'}`);
+  // console.log(`ReportingApi server running on port ${port}`);
+  // console.log(`Environment: ${process.env.APP_ENV || 'unknown'}`);
 });

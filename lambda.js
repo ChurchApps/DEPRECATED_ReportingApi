@@ -12,7 +12,8 @@ let handler;
 
 const universal = async function universal(event, context) {
   try {
-    console.log('Lambda invocation:', event.httpMethod, event.path);
+    // Removed debug logging for production - uncomment for debugging if needed
+    // console.log('Lambda invocation:', event.httpMethod, event.path);
     
     await checkPool();
     
@@ -36,8 +37,10 @@ const universal = async function universal(event, context) {
     
     return handler(event, context);
   } catch (error) {
-    console.error('Lambda handler error:', error);
-    console.error('Error stack:', error.stack);
+    // Keep essential error logging for debugging critical issues
+    console.error('Lambda handler error:', error.message);
+    // Uncomment the line below for detailed stack traces if needed for debugging
+    // console.error('Error stack:', error.stack);
     return {
       statusCode: 500,
       headers: {
